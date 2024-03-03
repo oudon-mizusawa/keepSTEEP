@@ -55,3 +55,19 @@
 {{< figure src="/keepSTEEP/images/メタモン(バケモン).jpg" title="メタモン(バケモン)" class="center" width="640" height="360" >}}
 土器っぽい色合いの粘土が売っていたのでメタモンを作ってみようと挑戦。なんとなくジャバ・ザ・ハットっぽさがある。
 ***
+### 自転車ツーリング装備
+{{< figure src="/keepSTEEP/images/自転車ツーリング装備.jpg" title="自転車ツーリング装備" class="center" width="640" height="480" >}}
+自転車日本縦断旅行時のツーリング装備。基本的にはテントで野宿していたが、北海道の東、道東では熊が出るので、市役所に熊の出没を確認してから野宿していた。
+***
+### 野宿の様子
+{{< figure src="/keepSTEEP/images/野宿の様子.jpg" title="野宿の様子" class="center" width="640" height="480" >}}
+自転車日本縦断旅行時の野宿装備。ちゃんとマットを敷かないと夏でも寒い。
+***
+### 野宿飯
+{{< figure src="/keepSTEEP/images/野宿飯.jpg" title="野宿飯" class="center" width="640" height="480" >}}
+おにぎり、トマトジュース、裂けるチーズをコッヘルで煮込むとお手軽チーズリゾットが出来上がる。コスパは意外と悪い。
+***
+### 水耕栽培機
+{{< figure src="/keepSTEEP/images/水耕栽培機.png" title="水耕栽培機" class="center" width="640" height="420" >}}
+学生時代、お金はないが野菜が欲しかったので水耕栽培機を作った。ラズパイとそのほか諸々を組み合わせて作ったが、いざ稼働してみると1時間に1度実行される水を組み上げるポンプの騒音で寝れなかったので、あえなくサ終。
+***
