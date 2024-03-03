@@ -85,6 +85,7 @@
 - Adobe Premiere Pro 1年
 - MMD(MikuMikuDance) 5年
 - Androidの小技(AOSPのコードを読んだり、Magiskでブート設定を弄ったり)
+- Stripe(決済サービス)の運用
 
 # きっかけなど
 ***
