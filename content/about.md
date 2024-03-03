@@ -84,6 +84,7 @@
 - k8s 3年
 - Adobe Premiere Pro 1年
 - MMD(MikuMikuDance) 5年
+- Androidの小技(AOSPのコードを読んだり、Magiskでブート設定を弄ったり)
 
 # きっかけなど
 ***
