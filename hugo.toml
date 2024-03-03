@@ -1,4 +1,4 @@
 theme = "ananke"
-baseURL = 'oudon-mizusawa.github.io'
+baseURL = 'https://oudon-mizusawa.github.io/keepSTEEP/'
 languageCode = 'js'
 title = 'keepSTEEP'
