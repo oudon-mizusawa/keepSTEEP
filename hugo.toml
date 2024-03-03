@@ -15,11 +15,11 @@ style = "github-dark"
   info = "Software Developer, さんぽが好き"
   description = "keepSTEEP website"
   keywords = "blog,developer,personal"
-  avatarurl = "img/logo.png"
+  avatarurl = "logo.png"
 
-  faviconSVG = "img/logo.png"
-  favicon_32 = "img/logo.png"
-  favicon_16 = "img/logo.png"
+  faviconSVG = "logo.png"
+  favicon_32 = "logo.png"
+  favicon_16 = "logo.png"
 
   since = 2024
 
@@ -62,4 +62,4 @@ style = "github-dark"
 [[menu.main]]
   name = "Exhibition"
   weight = 2
-  url = "exhibition/"
+  url = "exhibition"
