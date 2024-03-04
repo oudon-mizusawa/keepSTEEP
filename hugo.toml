@@ -4,9 +4,11 @@ languageCode = 'ja'
 theme = "hugo-coder"
 defaultcontentlanguage = "ja"
 paginate = 3
-# googleAnalytics = G-DNZQ0C6CHB
 
 disqusShortname = "keep steep"
+
+[params.googleTagManager]
+id = "G-DNZQ0C6CHB"
 
 [markup.highlight]
 style = "github-dark"
