@@ -4,6 +4,7 @@ languageCode = 'ja'
 theme = "hugo-coder"
 defaultcontentlanguage = "ja"
 paginate = 3
+googleAnalytics = G-DNZQ0C6CHB
 
 disqusShortname = "keep steep"
 
