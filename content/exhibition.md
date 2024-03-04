@@ -15,9 +15,9 @@
 {{< figure src="/keepSTEEP/images/ガチャガチャラックサーバ.jpg" title="ガチャガチャラックサーバ" class="center" width="640" height="360" >}}
 手のひらネットワーク機器というガチャガチャで作ったミニチュアラックサーバ。通信会社に勤める友人と一緒にガチャガチャを回してたのは良い思い出。
 ***
-### Tax
-{{< figure src="/keepSTEEP/images/タックス.jpg" title="Tax" class="center" width="640" height="360" >}}
-フリマで購入したTaxのぬいぐるみ。いつも自宅サーバを見守っているが、たまにロボット掃除機にゴミとして回収されている時がある。
+### Tux
+{{< figure src="/keepSTEEP/images/タックス.jpg" title="Tux" class="center" width="640" height="360" >}}
+フリマで購入したTuxのぬいぐるみ。いつも自宅サーバを見守っているが、たまにロボット掃除機にゴミとして回収されている時がある。
 ***
 ### テスラコイル
 {{< figure src="/keepSTEEP/images/テスラコイル.jpg" title="テスラコイル" class="center" width="640" height="360" >}}
