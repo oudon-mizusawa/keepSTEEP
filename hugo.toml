@@ -66,3 +66,7 @@ style = "github-dark"
   name = "Exhibition"
   weight = 2
   url = "exhibition"
+[[menu.main]]
+  name = "Favorite Books"
+  weight = 3
+  url = "favorite_books"
