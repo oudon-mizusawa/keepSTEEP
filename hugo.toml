@@ -20,9 +20,9 @@ style = "github-dark"
   keywords = "blog,developer,personal"
   avatarurl = "/keepSTEEP/icons/logo.png"
 
-  faviconSVG = "logo.png"
-  favicon_32 = "logo.png"
-  favicon_16 = "logo.png"
+  faviconSVG = "/keepSTEEP/icons/logo.png"
+  favicon_32 = "/keepSTEEP/icons/logo.png"
+  favicon_16 = "/keepSTEEP/icons/logo.png"
 
   since = 2024
 
