@@ -18,7 +18,7 @@ style = "github-dark"
   info = "Software Developer, さんぽが好き"
   description = "keepSTEEP website"
   keywords = "blog,developer,personal"
-  avatarurl = "logo.png"
+  avatarurl = "/keepSTEEP/icons/logo.png"
 
   faviconSVG = "logo.png"
   favicon_32 = "logo.png"
