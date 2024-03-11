@@ -3,7 +3,7 @@ baseURL = 'https://oudon-mizusawa.github.io/keepSTEEP/'
 languageCode = 'ja'
 theme = "hugo-coder"
 defaultcontentlanguage = "ja"
-paginate = 3
+paginate = 30
 
 disqusShortname = "keep steep"
 
