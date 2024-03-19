@@ -70,4 +70,5 @@ title: "Favorite Books"
 - 脱炭素経営入門
 - [スパ帝国 ルールデザインの話](http://spa-game.com/?p=4474)
 - 夜と霧
+- はじめての構造主義
 ***
