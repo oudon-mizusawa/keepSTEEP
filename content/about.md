@@ -15,7 +15,7 @@ title: "About"
 
 # 略歴
 - 2024年3月~: 個人事業主として独立(屋号: keepSTEEP)
-- 2023年4月~: 立命館大学
+- 2023年4月~: 立命館大学 補助研究員
   - [バイオ炭研究の研究補助業務に従事](https://www.ritsumei.ac.jp/research/brc/top/)
 - 2021年12月~2024年2月: ラトナ株式会社
   - ウェブ・API・モバイル開発などに従事
@@ -88,8 +88,8 @@ title: "About"
 
 ### DB
 - MySQL 3年
-- PostgreSQL 0.5年
-- timescaledb 0.5年
+- PostgreSQL 1年
+- timescaledb 1年
 
 ### OS
 - Windows 10年
