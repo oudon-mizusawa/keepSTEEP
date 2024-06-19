@@ -25,6 +25,7 @@ title: "Favorite Books"
 - マルクス・アウレーリウス　自省録
 - 老子(岩波文庫)
 - ローマ人への質問
+- 奴隷のしつけ方 マルクス・シドニウス・ファルクス, ジェリー・トナー
 - 中世への旅 農民戦争と傭兵
 - 米内光政
 - 群馬県公式はにわガイドブック「HANI-本（ハニぼん）」
@@ -32,6 +33,7 @@ title: "Favorite Books"
 ***
 
 # 仕事
+- [Harvard Business Review 楠木 建](https://dhbr.diamond.jp/list/search?fulltext=%E6%A5%A0%E6%9C%A8%20%E5%BB%BA)
 - 最強の経営を実現する予材管理のすべて
 - みんなのフィードバック大全
 - プロジェクトマネジメント実践講座
