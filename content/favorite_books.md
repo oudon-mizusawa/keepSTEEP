@@ -70,6 +70,7 @@ title: "Favorite Books"
 - 思考の整理学
 - バカの壁
 - 知的複眼思考法
+- 遊撃戦論
 - [なかのとおるのつぶやき なんのために学ぶのか](https://www.fbs.osaka-u.ac.jp/labs/nakano/essay_020.html)
 - [えび茶ゾーン - 言い残すこと](https://www.waseda.jp/inst/weekly/news/2020/06/09/75294/)
 - 里山資本主義
