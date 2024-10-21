@@ -18,6 +18,7 @@ title: "Favorite Books"
 - 2022年11月号 ｜ Interface – CQ出版
 - [ArchWiki](https://wiki.archlinux.jp/index.php/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8)
 - PostgreSQL 設計・運用計画の鉄則
+- [体温計をバラしただけなのに](https://techbookfest.org/product/rmXP2Zhf5nrErZwFdnZJ8v?productVariantID=dzKy5YJNSgZytuG8NXje0h)
 ***
 
 # 歴史
