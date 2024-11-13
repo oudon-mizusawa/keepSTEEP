@@ -82,4 +82,5 @@ title: "Favorite Books"
 - [スパ帝国 ルールデザインの話](http://spa-game.com/?p=4474)
 - 夜と霧
 - はじめての構造主義
+- 目的への抵抗
 ***
