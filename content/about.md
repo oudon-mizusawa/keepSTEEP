@@ -90,7 +90,7 @@ title: "About"
   - Flutter 0.5ヶ月
 
 ### DB
-- MySQL 3年
+- MySQL 4年
 - PostgreSQL 1年
 - timescaledb 1年
 
