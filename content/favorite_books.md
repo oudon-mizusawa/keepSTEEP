@@ -75,7 +75,7 @@ title: "Favorite Books"
 - 知的複眼思考法
 - 暇と退屈の倫理学
 - 遊撃戦論
-- [なかのとおるのつぶやき なんのために学ぶのか](https://www.fbs.osaka-u.ac.jp/labs/nakano/essay_020.html)
+- [なかのとおるのつぶやき なんのために学ぶのか](https://www.fbs.osaka-u.ac.jp/labs/nakano/essay_020.html)「専門のことであろうが、専門外のことであろうが、要するにものごとを自分の頭で考え、自分の言葉で自分の意見を表明できるようになるため。たったそれだけのことです。そのために勉強するのです。」
 - [えび茶ゾーン - 言い残すこと](https://www.waseda.jp/inst/weekly/news/2020/06/09/75294/)
 - 里山資本主義
 - 脱炭素経営入門
