@@ -7,7 +7,8 @@
 <time datetime=2024-03-09T00:00:00Z>3月 9, 2024</time></span>
 <span class=reading-time><i class="fa-solid fa-clock" aria-hidden=true></i>
 1分で読めます</span></div></div></header><div class=post-content><p><a href=https://nmap.org/man/ja/index.html class=external-link target=_blank rel=noopener>こちら</a>を参考に以下まとめ。</p><ul><li>隣接した複数のホストから成るネットワーク全体をスキャン対象としたい場合は、CIDR表記のアドレス指定を利用</li><li>Admin権限やroot権限を使ってnmapを使う必要がある。これは、ARP要求などはUNIXシステムなどにおいては、root権限が必要だからである。</li><li>SYN Scanはスキャン速度が早く、TCPコネクションを確立しないので秘匿性が高い。但し、知らないSYNパケットを捨てるといった処理をするデバイスに対しては効果がなかったりするので注意</li><li>OSのフィンガープリントの採取方法としては、例えばftpへの接続などを行い、そこで返された応答などから特定のOSかどうかをnmapが持っているDBと突合させるなどがある。</li></ul></div><footer><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//keep steep.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}(),document.addEventListener("themeChanged",function(){document.readyState=="complete"&&DISQUS.reset({reload:!0,config:disqus_config})})</script></footer></article></section></div><footer class=footer><section class=container>©
-2024
+2024 -
+2025
 keepSTEEP
 ·
 Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/keepSTEEP/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
