@@ -89,9 +89,9 @@ title: "About"
 
 ### 言語
 
-- HTML&CSS ＋ JavaScript 5 年
+- HTML&CSS ＋ JavaScript 6 年
 - AcessVBA 2 年
-- ExcelVBA 4 年
+- ExcelVBA 5 年
 - シェルスクリプト 3 年
 - Kotlin(Android) 3 年
 - Windows PowerShell 2 年
