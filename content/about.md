@@ -110,11 +110,21 @@ title: "About"
 - Dart 0.5 ヶ月
   - Flutter 0.5 ヶ月
 
+### そのほかインフラ・フレームワーク
+- Cloud
+- Softether 1 年
+- Git 5 年
+- GCP 3 年
+- k8s 3 年
+- AWS Cloud Formation 0.5 年
+- Proxmox 1年
+
 ### DB
 
 - MySQL 4 年
 - PostgreSQL 1 年
 - timescaledb 1 年
+- Supabase 1 年
 
 ### OS
 
@@ -125,10 +135,6 @@ title: "About"
 ### そのほか
 
 - Aviutl 5 年
-- Softether 1 年
-- Git 5 年
-- GCP 3 年
-- k8s 3 年
 - Adobe Premiere Pro 1 年
 - MMD(MikuMikuDance) 5 年
 - Android の小技(AOSP のコードを読んだり、Magisk でブート設定を弄ったり)
