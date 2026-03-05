@@ -107,5 +107,6 @@ title: "Favorite Books"
 - 不道徳教育講座
 - 葉隠入門
 - 絶筆(野坂昭如)
+- [桂枝雀　緊張と緩和　古典落語サゲの四分類](https://www.dailymotion.com/video/xzpw1s)
 
 ---
