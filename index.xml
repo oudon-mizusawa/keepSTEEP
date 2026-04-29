@@ -1,39 +1,248 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>keepSTEEP</title><link>https://oudon-mizusawa.github.io/keepSTEEP/</link><description>Recent content on keepSTEEP</description><generator>Hugo -- gohugo.io</generator><language>ja</language><lastBuildDate>Sun, 19 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://oudon-mizusawa.github.io/keepSTEEP/index.xml" rel="self" type="application/rss+xml"/><item><title>Privacy Policy - Memora LocalMind</title><link>https://oudon-mizusawa.github.io/keepSTEEP/privacy-policy/memora-localmind/</link><pubDate>Sun, 19 Apr 2026 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/privacy-policy/memora-localmind/</guid><description>Memora LocalMind プライバシーポリシー 見出しへのリンク 最終更新日: 2026 年 4 月 19 日
-本プライバシーポリシー（以下「本ポリシー」）は、keepSTEEP（以下「当方」）が提供する Android アプリ「Memora LocalMind」（以下「本アプリ」）における、ユーザー情報の取り扱いについて定めるものです。
-1. 事業者情報 見出しへのリンク 事業者名: keepSTEEP 連絡先: keepsteep2024@gmail.com 2. 収集する情報と利用目的 見出しへのリンク 本アプリは、以下の情報を端末内で取得・利用します。
-2.1 マイク音声（android.permission.RECORD_AUDIO） 見出しへのリンク 取得する情報: ユーザーが録音操作を行った際に、端末のマイクから入力される音声 利用目的: 音声をテキストに変換（文字起こし）するため 処理場所: すべてユーザーの端末内（ローカル）で処理されます 外部送信: 行いません。録音データおよび文字起こし結果は、当方のサーバー、第三者のサーバー、クラウドサービス、外部の音声認識 API などに送信されることは一切ありません 保存場所: 本アプリが管理する端末内のストレージ領域のみ 3. 第三者提供について 見出しへのリンク 当方は、本アプリで取得した音声データおよび文字起こし結果を含む一切の個人情報を、第三者に提供・販売・共有することはありません。
-4. データの保存期間と削除 見出しへのリンク 録音データおよび文字起こし結果は、ユーザーが端末内で明示的に削除するまで保存されます ユーザーはアプリ内の操作によって、任意のタイミングでデータを削除できます アプリをアンインストールした場合、本アプリが端末内に保存しているデータは削除されます 5. 権限の利用について 見出しへのリンク 本アプリが利用する Android の権限と、その目的は以下のとおりです。
-権限 目的 android.permission.RECORD_AUDIO（マイク） 文字起こしのための音声入力 マイク権限は、ユーザーが録音機能を起動したときにのみ使用され、バックグラウンドで無断で録音することはありません。
-6. プライバシー 見出しへのリンク 本アプリは情報を収集することはありません。
-7. セキュリティ 見出しへのリンク 本アプリは、録音データおよび文字起こし結果を外部に送信せず、ユーザーの端末内でのみ扱います。端末のセキュリティ（画面ロック、OS の暗号化機能など）によりデータは保護されます。</description></item><item><title>集合指向的なアプリケーション設定</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/005/</link><pubDate>Mon, 12 Jan 2026 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/005/</guid><description>はじめに 見出しへのリンク Smart data structures and dumb code works a lot better than the other way around.&amp;#34;(賢いデータ構造と愚かなコードは、その逆よりもずっとうまく機能する) という言葉があるように、優れたデータ構造を設計することはソフトウェア開発において重要である。ところが実務で様々な現場を経験すると、手続き型・関数型・オブジェクト指向といったプログラミングパラダイムやオニオンアーキテクチャなどのアーキテクチャにばかり注目が集まり、データ構造をいかにしてアプリケーションサーバに適用するかという視点が欠けていることが多いように思う。個人的な備忘録としてどのようにデータ構造を設計し、アプリケーションに適用するか一考する。
-今回扱う範囲について 見出しへのリンク 一般的なアプリケーションサーバを対象とする データの取得はRDBを前提とする TypeScript/JavaScriptを使用する フレームワークは特に問わない 参考文献 見出しへのリンク プログラマのためのSQL 第4版
-集合指向的なデータ構造設計 見出しへのリンク アプリケーションサーバにおけるデータ構造設計において重要なのは、データを「集合」として捉えることである。例えば、ユーザ情報を扱う場合、単一のユーザオブジェクトではなく、ユーザの集合を表現するデータ構造を設計する。これにより、データの一貫性を保ちやすくなり、操作も効率的になる。プログラミングとは手続きとデータの組み合わせであるが、データを集合として捉えることで、手続きも集合操作に基づいたものとなり、コードの可読性と保守性が向上する。
-その良い例としてSQLを例に挙げる。SQLはデータ宣言言語（Data Declaration Language）・DML：データ操作言語（Data Manipulation Language）・DCL：データ制御言語（Data Control Language）の3つの要素から成り立っている。 SQLにおいては、データは常に集合として扱われ、単一のレコードを操作する場合でも、集合操作の一部として捉えられる。このように、データを集合として捉えることで、データの整合性を保ちつつ、効率的な操作が可能となる。
-例えばSQLでユーザーに対するアクセスを手続き的に記述する場合、以下のようになる。
--- 手続き型: 1行ずつ処理(遅い、複雑) CREATE PROCEDURE GetActiveUsers() BEGIN DECLARE done INT DEFAULT FALSE; DECLARE user_id INT; DECLARE user_name VARCHAR(100); DECLARE is_active BOOLEAN; -- カーソル宣言 DECLARE user_cursor CURSOR FOR SELECT id, name, is_active FROM users; DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE; -- 結果格納用の一時テーブル CREATE TEMPORARY TABLE active_users ( id INT, name VARCHAR(100) ); OPEN user_cursor; read_loop: LOOP FETCH user_cursor INTO user_id, user_name, is_active; IF done THEN LEAVE read_loop; END IF; -- 1行ずつ条件チェック IF is_active = TRUE THEN INSERT INTO active_users (id, name) VALUES (user_id, user_name); END IF; END LOOP; CLOSE user_cursor; -- 結果を返す SELECT * FROM active_users; DROP TEMPORARY TABLE active_users; END; 集合指向的に記述する場合、以下のようになる。</description></item><item><title>Ubuntu OS バージョン偽装方法</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/004/</link><pubDate>Mon, 11 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/004/</guid><description>NAME=&amp;#34;Ubuntu&amp;#34; VERSION=&amp;#34;20.04 LTS (Focal Fossa)&amp;#34; ID=ubuntu ID_LIKE=debian PRETTY_NAME=&amp;#34;Ubuntu 20.04 LTS&amp;#34; VERSION_ID=&amp;#34;20.04&amp;#34; HOME_URL=&amp;#34;https://www.ubuntu.com/&amp;#34; SUPPORT_URL=&amp;#34;https://help.ubuntu.com/&amp;#34; BUG_REPORT_URL=&amp;#34;https://bugs.launchpad.net/ubuntu/&amp;#34; PRIVACY_POLICY_URL=&amp;#34;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&amp;#34; VERSION_CODENAME=focal UBUNTU_CODENAME=focal のようになっているのを
-NAME=&amp;#34;Ubuntu&amp;#34; VERSION=&amp;#34;20.04 LTS (Focal Fossa)&amp;#34; ID=ubuntu ID_LIKE=debian PRETTY_NAME=&amp;#34;Ubuntu 20.04 LTS&amp;#34; VERSION_ID=&amp;#34;18.04&amp;#34; # 変更 HOME_URL=&amp;#34;https://www.ubuntu.com/&amp;#34; SUPPORT_URL=&amp;#34;https://help.ubuntu.com/&amp;#34; BUG_REPORT_URL=&amp;#34;https://bugs.launchpad.net/ubuntu/&amp;#34; PRIVACY_POLICY_URL=&amp;#34;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&amp;#34; VERSION_CODENAME=focal UBUNTU_CODENAME=focal https://qiita.com/hama6767/items/2351cf1f7f57bddd9f2a</description></item><item><title>Androidのヒープ領域</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/001/</link><pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/001/</guid><description>Linux ヒープ 搭載されている物理的なRAMの全領域を扱って、android OS 全体に使われる。OS やカーネルに割り当てられるメモリの他に、以下のアプリケーションヒープも含まれる。 アプリケーションヒープ 各アプリケーション毎に OS によって割り当てられるメモリ領域で、多くの機種でデフォルトで 16MB ほど。JDK で作られたアプリケーションはこのメモリを使う。このヒープも大きく分けて２種類に分類される。 Dalvik (Java) ヒープ: Dalvik (Java) が使う変数などを配置するメモリ。 ネイティブヒープ: Bitmap などのリソースで扱うメモリ。 参考</description></item><item><title>Linux VPN周りのトンネリングってどの辺で実装してるの？</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/002/</link><pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/002/</guid><description>TUN/TAPと呼ばれる仮想NICで実現しているらしい。
-ここで湧いてくる疑問は、「なぜ、tun/tupの仮想インターネットデバイスを作ると全ての通信がそこ経由になるのか？」ということになるが、その辺はここに詳しく書いてある。</description></item><item><title>nmapの使い方</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/003/</link><pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/003/</guid><description>こちらを参考に以下まとめ。
-隣接した複数のホストから成るネットワーク全体をスキャン対象としたい場合は、CIDR表記のアドレス指定を利用 Admin権限やroot権限を使ってnmapを使う必要がある。これは、ARP要求などはUNIXシステムなどにおいては、root権限が必要だからである。 SYN Scanはスキャン速度が早く、TCPコネクションを確立しないので秘匿性が高い。但し、知らないSYNパケットを捨てるといった処理をするデバイスに対しては効果がなかったりするので注意 OSのフィンガープリントの採取方法としては、例えばftpへの接続などを行い、そこで返された応答などから特定のOSかどうかをnmapが持っているDBと突合させるなどがある。</description></item><item><title>About</title><link>https://oudon-mizusawa.github.io/keepSTEEP/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/about/</guid><description>経歴など
-Work 見出しへのリンク Web アプリ, モバイルアプリ, バックエンドの開発
-Next.js・React などを用いたウェブ開発 クリーンアーキテクチャ(DDD など)を用いたバックエンドの設計 DB テーブル設計 レガシープロジェクトのリファクタリング・設計方針の策定 主にフロントエンド・バックエンドの経験があります。GCP/Typescript のアプリケーションを技術検証・環境構築・設計・本番運用・障害対応まで行いました。
-チームリーダーとして、別部門・デザイナーと協働して、上流工程の調整・チーム連携・実装・テストなどを幅広く行っており、自走して WEB/モバイルのアプリケーション開発を行うことができます。
-PM(プロジェクトマネージャー)としても経験を積んできました。プロジェクトの計画立案から進捗管理、チームメンバーの調整まで幅広く担当し、円滑なコミュニケーションを通じてプロジェクトを導いてきました。具体的には、スケジュールの策定やクライアントとの折衝、提案を行い、クライアントとの要件定義・提案を行うことで、納期内に高品質な成果物を提供しました。チームの士気を高めるための施策にも取り組み、全員が共通の目標に向かって進む環境を整えることに注力しました。
-略歴 見出しへのリンク 2025 年 1 月~: 合同会社マイオルムを設立 2024 年 3 月~: 個人事業主として独立(屋号: keepSTEEP) 2023 年 4 月~: 立命館大学 補助研究員 バイオ炭研究の研究補助業務に従事 2021 年 12 月~2024 年 2 月: ラトナ株式会社 ウェブ・API・モバイル開発などに従事 2020 年 12 月~2020 年 4 月: 農林水産省研究推進事業委託プロジェクト研究 脱炭素・環境対応プロジェクト「農林水産分野における炭素吸収源対策技術の開発」 動画作成 2020 年 6 月~2020 年 12 月: 大手インターネット広告会社の子会社 長期インターン(ソフトウェアエンジニア) メディア記事作成業務 NodeJS を用いた BI ツール作成 データ入力業務 業務経歴 見出しへのリンク オンラインビデオ通話システムの技術検証・システム開発 社内向け管理画面の作成 VOD ストリーミング再生システムの開発 BI ツールの作成 コーポレートサイトの作成 PC キッティング対応 お客様問い合わせ対応 ネットワークパケット調査 外部システム連携 官公庁向け大規模システム開発(詳細設計・フロントエンド実装・アーキテクトサポート・テスト) 賞歴・執筆歴 見出しへのリンク 株式会社ソラコム SORACOM Summer Challenge 2020 ファイナリスト選出 立命館大学 「IoT ハンズオン -実際に体験-」 基本情報 見出しへのリンク 屋号 keepSTEEP 名前 保坂 性別 男 生年月日 1999 年 1 月 7 日 住所 神奈川県 川崎市 最終学歴 立命館大学 経営学部 卒業年月 2021 年 9 月 免許・資格 日商簿記 2 級 IT パスポート FP3 級 漢字検定 2 級 C 言語プログラミング能力認定試験 2 級 TOEIC 755 点 特技 自転車 知らない人に道を尋ねられる 近くのドンキの品揃えを把握している 座右の銘 曲なれば則ち全し 好きな言葉 Москва Слезам Не Верит（モスクワは涙を信じない） 2025 年の目標：謙虚になること 2026 年の目標：知行合一・謙虚になること スキル・経験 見出しへのリンク 言語 見出しへのリンク HTML&amp;amp;CSS ＋ JavaScript 6 年 AcessVBA 2 年 ExcelVBA 5 年 シェルスクリプト 3 年 Kotlin(Android) 3 年 Windows PowerShell 2 年 Javascript/TypeScript NodeJS 5 年 NestJS 3 年 Express 2 年 React/NextJS 3 年 Python 3 年 C# 0.</description></item><item><title>Exhibition</title><link>https://oudon-mizusawa.github.io/keepSTEEP/exhibition/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/exhibition/</guid><description>常設展示場、癖の強い品々。
-NTT東日本神社 見出しへのリンク NTT東日本 自宅サーバの守り神として、NTT東日本と与田祐希を祀っている。
-おうちクラウド 見出しへのリンク おうちクラウド 我が家のおうちクラウド。Proxmoxを使っており、Gogsなどのサーバが動いている。この前帰省した時にうっかり電源を引っこ抜いてしまい、それから動いていない。
-ガチャガチャラックサーバ 見出しへのリンク ガチャガチャラックサーバ 手のひらネットワーク機器というガチャガチャで作ったミニチュアラックサーバ。通信会社に勤める友人と一緒にガチャガチャを回してたのは良い思い出。
-Tux 見出しへのリンク Tux フリマで購入したTuxのぬいぐるみ。いつも自宅サーバを見守っているが、たまにロボット掃除機にゴミとして回収されている時がある。
-テスラコイル 見出しへのリンク テスラコイル クリスマスの夜にぼっちだけを集めて、テスラコイルにその音声を流し込むことで彩り豊かなクリスマスを迎えようとしたが、配線を間違えてショートしたため結局できなかった。
-パンが安い 見出しへのリンク パンが安い ロシア雑貨屋さんで買ったソビエト時代のポスター。NEP(新経済政策)と書かれているので、ロシア・アヴァンギャルドの時代のポスターだと思われるが、書かれている内容は、「パンが安い」というだけ。
-ミーシャバッジ 見出しへのリンク ミーシャバッジ こちらもロシア雑貨屋さんで買った。モスクワオリンピック時代のタクシー運転手にだけ配られたもので、なんと7,000円もした。Дасвидания Мишка。
-思い出のTシャツ 見出しへのリンク 思い出のTシャツ 色々と思い入れのあるTシャツ。色々あったなぁ。。。
-明日から禁煙 見出しへのリンク 明日から禁煙 北海道大学の恵迪寮にて。苦しい時、いつもこの標語(?)を心で唱えている。タイトルとの関連性は不明。
-自作土器 見出しへのリンク 土器 左は小学校の体験学習で作った土器。右は大学時代に河川敷で遊んでいたら粘土を見つけて思わず作った土器。粘土に含まれる水分を飛ばすことが肝要。
-メモリパキラ 見出しへのリンク メモリパキラ 友人からもらった壊れたメモリを、育てていたパキラの成長記録のために目盛りとして再活用。ビューティフォーな逸品。
-タコ？ 見出しへのリンク タコ？ 後輩からもらった手作りのたこ？。聞くところによるとお邪魔した人の家にプレゼントしているらしい。なんで？
-メタモン(バケモン) 見出しへのリンク メタモン(バケモン) 土器っぽい色合いの粘土が売っていたのでメタモンを作ってみようと挑戦。なんとなくジャバ・ザ・ハットっぽさがある。
-自転車ツーリング装備 見出しへのリンク 自転車ツーリング装備 自転車日本縦断旅行時のツーリング装備。基本的にはテントで野宿していたが、北海道の東、道東では熊が出るので、市役所に熊の出没を確認してから野宿していた。
-野宿の様子 見出しへのリンク 野宿の様子 自転車日本縦断旅行時の野宿装備。ちゃんとマットを敷かないと夏でも寒い。
-野宿飯 見出しへのリンク 野宿飯 おにぎり、トマトジュース、裂けるチーズをコッヘルで煮込むとお手軽チーズリゾットが出来上がる。コスパは意外と悪い。
-水耕栽培機 見出しへのリンク 水耕栽培機 学生時代、お金はないが野菜が欲しかったので水耕栽培機を作った。ラズパイとそのほか諸々を組み合わせて作ったが、いざ稼働してみると1時間に1度実行される水を組み上げるポンプの騒音で寝れなかったので、あえなくサ終。</description></item><item><title>Favorite Books</title><link>https://oudon-mizusawa.github.io/keepSTEEP/favorite_books/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/favorite_books/</guid><description>好きな本とか記事とか。
-技術 見出しへのリンク Effective Java 第 3 版 Clean Arcgitecture 達人に学ぶソフトウェアの構造と設計 ネットワーク技術 &amp;amp; 設計入門 達人に学ぶ DB 設計徹底指南書 リレーショナル・データベースの世界 問題解決のための「アルゴリズム × 数学」が基礎からしっかり身につく本 Java 言語で学ぶデザインパターン入門 計算機プログラムの構造と解釈 // NOTICE: 途中までしか読めてない UNIX という考え方: その設計思想と哲学 SoftEther VPN プロジェクト 秘密の NTT 電話局、フレッツ光、およびインターネット入門 ピアリング戦記 日本のインターネットを繋ぐ技術者達 2022 年 11 月号 ｜ Interface – CQ 出版 ArchWiki PostgreSQL 設計・運用計画の鉄則 体温計をバラしただけなのに 算理論の基礎 [原著第 2 版] 1.オートマトンと言語 歴史 見出しへのリンク 地中海世界とローマ帝国 老年について友情について マルクス・アウレーリウス　自省録 老子(岩波文庫) ローマ人への質問 奴隷のしつけ方 マルクス・シドニウス・ファルクス, ジェリー・トナー 中世への旅 農民戦争と傭兵 米内光政 群馬県公式はにわガイドブック「HANI-本（ハニぼん）」 ソ連の宇宙技術は最強過ぎたのだが、それを西側諸国が完全に理解したのはつい最近だった 仕事 見出しへのリンク Harvard Business Review 楠木 建 最強の経営を実現する予材管理のすべて みんなのフィードバック大全 プロジェクトマネジメント実践講座 コンサル一年目が学ぶこと 「抽象」と「具体」の往復運動 家づくりで理解する要求明確化の勘所 日本語の作文技術 反論の技術: その意義と訓練方法 効果検証入門 実践 顧客起点マーケティング 上司はなぜ無能なのか？ 40 歳までの「売れるキャリア」の作りかた 橘・フクシマ・咲江 宣伝は差異が全て　邪神ちゃんドロップキックからマーケティングを学ぶ 生物 見出しへのリンク ソロモンの指輪―動物行動学入門 オスとは何で、メスとは何か？ クジラのおなかに入ったら ラノベ・漫画・小説 見出しへのリンク このすば PLUTO クライマーズハイ 人類は衰退しました 呪術廻戦 同棲時代 そのほか 見出しへのリンク 大人のいない国(内田樹) 市民による筑波大学の松美池でのボート遊びについて プログラマをクソコードで殴り続けると死ぬ ものがわかるということ 思考の整理学 バカの壁 住宅購入の思考法 知的複眼思考法 ゲンロン戦記 暇と退屈の倫理学 遊撃戦論 世界は贈与でできている なかのとおるのつぶやき なんのために学ぶのか「専門のことであろうが、専門外のことであろうが、要するにものごとを自分の頭で考え、自分の言葉で自分の意見を表明できるようになるため。たったそれだけのことです。そのために勉強するのです。」 えび茶ゾーン - 言い残すこと 里山資本主義 脱炭素経営入門 スパ帝国 ルールデザインの話 夜と霧 はじめての構造主義 寝ながら学べる構造主義 目的への抵抗 不道徳教育講座 葉隠入門 絶筆(野坂昭如) 桂枝雀　緊張と緩和　古典落語サゲの四分類</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>keepSTEEP</title><link>https://oudon-mizusawa.github.io/keepSTEEP/</link><description>Recent content on keepSTEEP</description><generator>Hugo -- gohugo.io</generator><language>ja</language><lastBuildDate>Sun, 19 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://oudon-mizusawa.github.io/keepSTEEP/index.xml" rel="self" type="application/rss+xml"/><item><title>Privacy Policy - Memora LocalMind</title><link>https://oudon-mizusawa.github.io/keepSTEEP/privacy-policy/memora-localmind/</link><pubDate>Sun, 19 Apr 2026 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/privacy-policy/memora-localmind/</guid><description>&lt;h1 class="relative group"&gt;Memora LocalMind プライバシーポリシー
+ &lt;div id="memora-localmind-プライバシーポリシー" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#memora-localmind-%e3%83%97%e3%83%a9%e3%82%a4%e3%83%90%e3%82%b7%e3%83%bc%e3%83%9d%e3%83%aa%e3%82%b7%e3%83%bc" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;p&gt;最終更新日: 2026 年 4 月 19 日&lt;/p&gt;</description></item><item><title>集合指向的なアプリケーション設定</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/005/</link><pubDate>Mon, 12 Jan 2026 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/005/</guid><description>&lt;h2 class="relative group"&gt;はじめに
+ &lt;div id="はじめに" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e3%81%af%e3%81%98%e3%82%81%e3%81%ab" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h2&gt;
+&lt;div class="highlight-wrapper"&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Smart data structures and dumb code works a lot better than the other way around.&amp;#34;(賢いデータ構造と愚かなコードは、その逆よりもずっとうまく機能する)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;という言葉があるように、優れたデータ構造を設計することはソフトウェア開発において重要である。ところが実務で様々な現場を経験すると、手続き型・関数型・オブジェクト指向といったプログラミングパラダイムやオニオンアーキテクチャなどのアーキテクチャにばかり注目が集まり、データ構造をいかにしてアプリケーションサーバに適用するかという視点が欠けていることが多いように思う。個人的な備忘録としてどのようにデータ構造を設計し、アプリケーションに適用するか一考する。&lt;/p&gt;</description></item><item><title>Ubuntu OS バージョン偽装方法</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/004/</link><pubDate>Mon, 11 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/004/</guid><description>&lt;div class="highlight-wrapper"&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;NAME=&amp;#34;Ubuntu&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;VERSION=&amp;#34;20.04 LTS (Focal Fossa)&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ID=ubuntu
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ID_LIKE=debian
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PRETTY_NAME=&amp;#34;Ubuntu 20.04 LTS&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;VERSION_ID=&amp;#34;20.04&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;HOME_URL=&amp;#34;https://www.ubuntu.com/&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;SUPPORT_URL=&amp;#34;https://help.ubuntu.com/&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;BUG_REPORT_URL=&amp;#34;https://bugs.launchpad.net/ubuntu/&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PRIVACY_POLICY_URL=&amp;#34;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;VERSION_CODENAME=focal
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;UBUNTU_CODENAME=focal&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;のようになっているのを&lt;/p&gt;
+&lt;div class="highlight-wrapper"&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;NAME=&amp;#34;Ubuntu&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;VERSION=&amp;#34;20.04 LTS (Focal Fossa)&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ID=ubuntu
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ID_LIKE=debian
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PRETTY_NAME=&amp;#34;Ubuntu 20.04 LTS&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;VERSION_ID=&amp;#34;18.04&amp;#34; # 変更
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;HOME_URL=&amp;#34;https://www.ubuntu.com/&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;SUPPORT_URL=&amp;#34;https://help.ubuntu.com/&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;BUG_REPORT_URL=&amp;#34;https://bugs.launchpad.net/ubuntu/&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;PRIVACY_POLICY_URL=&amp;#34;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;VERSION_CODENAME=focal
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;UBUNTU_CODENAME=focal&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href="https://qiita.com/hama6767/items/2351cf1f7f57bddd9f2a" target="_blank" rel="noreferrer"&gt;https://qiita.com/hama6767/items/2351cf1f7f57bddd9f2a&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Androidのヒープ領域</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/001/</link><pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/001/</guid><description>&lt;ol&gt;
+&lt;li&gt;Linux ヒープ
+搭載されている物理的なRAMの全領域を扱って、android OS 全体に使われる。OS やカーネルに割り当てられるメモリの他に、以下のアプリケーションヒープも含まれる。&lt;/li&gt;
+&lt;li&gt;アプリケーションヒープ
+各アプリケーション毎に OS によって割り当てられるメモリ領域で、多くの機種でデフォルトで 16MB ほど。JDK で作られたアプリケーションはこのメモリを使う。このヒープも大きく分けて２種類に分類される。
+&lt;ul&gt;
+&lt;li&gt;Dalvik (Java) ヒープ: Dalvik (Java) が使う変数などを配置するメモリ。&lt;/li&gt;
+&lt;li&gt;ネイティブヒープ: Bitmap などのリソースで扱うメモリ。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a href="https://groups.google.com/g/android-sdk-japan/c/jUdRyZ0nqI8" target="_blank" rel="noreferrer"&gt;参考&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Linux VPN周りのトンネリングってどの辺で実装してるの？</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/002/</link><pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/002/</guid><description>&lt;p&gt;&lt;a href="https://ja.wikipedia.org/wiki/TUN/TAP" target="_blank" rel="noreferrer"&gt;TUN/TAP&lt;/a&gt;と呼ばれる仮想NICで実現しているらしい。&lt;/p&gt;
+&lt;p&gt;ここで湧いてくる疑問は、「なぜ、tun/tupの仮想インターネットデバイスを作ると全ての通信がそこ経由になるのか？」ということになるが、その辺は&lt;a href="https://stackoverflow.com/questions/10528785/tun-tap-interface-communication-with-physical-device" target="_blank" rel="noreferrer"&gt;ここ&lt;/a&gt;に詳しく書いてある。&lt;/p&gt;</description></item><item><title>nmapの使い方</title><link>https://oudon-mizusawa.github.io/keepSTEEP/posts/003/</link><pubDate>Sat, 09 Mar 2024 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/posts/003/</guid><description>&lt;p&gt;&lt;a href="https://nmap.org/man/ja/index.html" target="_blank" rel="noreferrer"&gt;こちら&lt;/a&gt;を参考に以下まとめ。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;隣接した複数のホストから成るネットワーク全体をスキャン対象としたい場合は、CIDR表記のアドレス指定を利用&lt;/li&gt;
+&lt;li&gt;Admin権限やroot権限を使ってnmapを使う必要がある。これは、ARP要求などはUNIXシステムなどにおいては、root権限が必要だからである。&lt;/li&gt;
+&lt;li&gt;SYN Scanはスキャン速度が早く、TCPコネクションを確立しないので秘匿性が高い。但し、知らないSYNパケットを捨てるといった処理をするデバイスに対しては効果がなかったりするので注意&lt;/li&gt;
+&lt;li&gt;OSのフィンガープリントの採取方法としては、例えばftpへの接続などを行い、そこで返された応答などから特定のOSかどうかをnmapが持っているDBと突合させるなどがある。&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>About</title><link>https://oudon-mizusawa.github.io/keepSTEEP/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/about/</guid><description>&lt;hr&gt;
+
+&lt;h1 class="relative group"&gt;Work
+ &lt;div id="work" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#work" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Web アプリ, モバイルアプリ, バックエンドの開発&lt;/p&gt;</description></item><item><title>Exhibition</title><link>https://oudon-mizusawa.github.io/keepSTEEP/exhibition/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/exhibition/</guid><description>&lt;p&gt;常設展示場、癖の強い品々。&lt;/p&gt;
+&lt;hr&gt;
+
+&lt;h3 class="relative group"&gt;NTT東日本神社
+ &lt;div id="ntt東日本神社" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#ntt%e6%9d%b1%e6%97%a5%e6%9c%ac%e7%a5%9e%e7%a4%be" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h3&gt;
+&lt;p&gt;
+&lt;figure&gt;
+ &lt;img class="my-0 rounded-md center" src="https://oudon-mizusawa.github.io/keepSTEEP/images/NTT%E7%A5%9E%E7%A4%BE.jpg" alt="" /&gt;
+ 
+ 
+ &lt;/figure&gt;
+自宅サーバの守り神として、NTT東日本と与田祐希を祀っている。&lt;/p&gt;</description></item><item><title>Favorite Books</title><link>https://oudon-mizusawa.github.io/keepSTEEP/favorite_books/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://oudon-mizusawa.github.io/keepSTEEP/favorite_books/</guid><description>&lt;hr&gt;
+
+&lt;h1 class="relative group"&gt;技術
+ &lt;div id="技術" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%8a%80%e8%a1%93" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Effective Java 第 3 版&lt;/li&gt;
+&lt;li&gt;Clean Arcgitecture 達人に学ぶソフトウェアの構造と設計&lt;/li&gt;
+&lt;li&gt;ネットワーク技術 &amp;amp; 設計入門&lt;/li&gt;
+&lt;li&gt;達人に学ぶ DB 設計徹底指南書&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://mickindex.sakura.ne.jp/database/idx_database.html" target="_blank" rel="noreferrer"&gt;リレーショナル・データベースの世界&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;問題解決のための「アルゴリズム × 数学」が基礎からしっかり身につく本&lt;/li&gt;
+&lt;li&gt;Java 言語で学ぶデザインパターン入門&lt;/li&gt;
+&lt;li&gt;計算機プログラムの構造と解釈 // NOTICE: 途中までしか読めてない&lt;/li&gt;
+&lt;li&gt;UNIX という考え方: その設計思想と哲学&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://ja.softether.org/" target="_blank" rel="noreferrer"&gt;SoftEther VPN プロジェクト&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://dnobori.cyber.ipa.go.jp/ppt/download/20230610_soumu/230610%20%E8%AC%9B%E6%BC%94%20%E7%AC%AC1%E9%83%A8%20%28%E7%99%BB%29%20-%20%E9%85%8D%E5%B8%83%E8%B3%87%E6%96%99%E3%81%9D%E3%81%AE1%20-%20%E7%A7%98%E5%AF%86%E3%81%AE%20NTT%20%E9%9B%BB%E8%A9%B1%E5%B1%80%E3%80%81%E3%83%95%E3%83%AC%E3%83%83%E3%83%84%E5%85%89%E3%80%81%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%8D%E3%83%83%E3%83%88%E5%85%A5%E9%96%80.pdf" target="_blank" rel="noreferrer"&gt;秘密の NTT 電話局、フレッツ光、およびインターネット入門&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ピアリング戦記 日本のインターネットを繋ぐ技術者達&lt;/li&gt;
+&lt;li&gt;2022 年 11 月号 ｜ Interface – CQ 出版&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://wiki.archlinux.jp/index.php/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8" target="_blank" rel="noreferrer"&gt;ArchWiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;PostgreSQL 設計・運用計画の鉄則&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://techbookfest.org/product/rmXP2Zhf5nrErZwFdnZJ8v?productVariantID=dzKy5YJNSgZytuG8NXje0h" target="_blank" rel="noreferrer"&gt;体温計をバラしただけなのに&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;計算理論の基礎 [原著第 2 版] 1.オートマトンと言語&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+
+&lt;h1 class="relative group"&gt;歴史
+ &lt;div id="歴史" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%ad%b4%e5%8f%b2" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;地中海世界とローマ帝国&lt;/li&gt;
+&lt;li&gt;老年について友情について&lt;/li&gt;
+&lt;li&gt;マルクス・アウレーリウス　自省録&lt;/li&gt;
+&lt;li&gt;老子(岩波文庫)&lt;/li&gt;
+&lt;li&gt;ローマ人への質問&lt;/li&gt;
+&lt;li&gt;奴隷のしつけ方 マルクス・シドニウス・ファルクス, ジェリー・トナー&lt;/li&gt;
+&lt;li&gt;中世への旅 農民戦争と傭兵&lt;/li&gt;
+&lt;li&gt;米内光政&lt;/li&gt;
+&lt;li&gt;群馬県公式はにわガイドブック「HANI-本（ハニぼん）」&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://ncode.syosetu.com/n4343eh/" target="_blank" rel="noreferrer"&gt;ソ連の宇宙技術は最強過ぎたのだが、それを西側諸国が完全に理解したのはつい最近だった&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+
+&lt;h1 class="relative group"&gt;仕事
+ &lt;div id="仕事" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%bb%95%e4%ba%8b" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://dhbr.diamond.jp/list/search?fulltext=%E6%A5%A0%E6%9C%A8%20%E5%BB%BA" target="_blank" rel="noreferrer"&gt;Harvard Business Review 楠木 建&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;最強の経営を実現する予材管理のすべて&lt;/li&gt;
+&lt;li&gt;みんなのフィードバック大全&lt;/li&gt;
+&lt;li&gt;プロジェクトマネジメント実践講座&lt;/li&gt;
+&lt;li&gt;コンサル一年目が学ぶこと&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://dhbr.diamond.jp/articles/-/1420" target="_blank" rel="noreferrer"&gt;「抽象」と「具体」の往復運動&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.ipa.go.jp/archive/files/000065172.pdf" target="_blank" rel="noreferrer"&gt;家づくりで理解する要求明確化の勘所&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;日本語の作文技術&lt;/li&gt;
+&lt;li&gt;反論の技術: その意義と訓練方法&lt;/li&gt;
+&lt;li&gt;効果検証入門&lt;/li&gt;
+&lt;li&gt;実践 顧客起点マーケティング&lt;/li&gt;
+&lt;li&gt;上司はなぜ無能なのか？&lt;/li&gt;
+&lt;li&gt;40 歳までの「売れるキャリア」の作りかた 橘・フクシマ・咲江&lt;/li&gt;
+&lt;li&gt;宣伝は差異が全て　邪神ちゃんドロップキックからマーケティングを学ぶ&lt;/li&gt;
+&lt;li&gt;「ついやってしまう」体験のつくりかた 人を動かす「直感・驚き・物語」のしくみ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+
+&lt;h1 class="relative group"&gt;生物
+ &lt;div id="生物" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%94%9f%e7%89%a9" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;ソロモンの指輪―動物行動学入門&lt;/li&gt;
+&lt;li&gt;オスとは何で、メスとは何か？&lt;/li&gt;
+&lt;li&gt;クジラのおなかに入ったら&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+
+&lt;h1 class="relative group"&gt;ラノベ・漫画・小説
+ &lt;div id="ラノベ漫画小説" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e3%83%a9%e3%83%8e%e3%83%99%e6%bc%ab%e7%94%bb%e5%b0%8f%e8%aa%ac" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;このすば&lt;/li&gt;
+&lt;li&gt;PLUTO&lt;/li&gt;
+&lt;li&gt;クライマーズハイ&lt;/li&gt;
+&lt;li&gt;人類は衰退しました&lt;/li&gt;
+&lt;li&gt;呪術廻戦&lt;/li&gt;
+&lt;li&gt;同棲時代&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+
+&lt;h1 class="relative group"&gt;そのほか
+ &lt;div id="そのほか" class="anchor"&gt;&lt;/div&gt;
+ 
+ &lt;span
+ class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none"&gt;
+ &lt;a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e3%81%9d%e3%81%ae%e3%81%bb%e3%81%8b" aria-label="アンカー"&gt;#&lt;/a&gt;
+ &lt;/span&gt;
+ 
+&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;大人のいない国(内田樹)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://softether.hatenadiary.org/entry/20131110/p1" target="_blank" rel="noreferrer"&gt;市民による筑波大学の松美池でのボート遊びについて&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://megalodon.jp/2018-0908-1659-52/https://www.megamouth.info:443/entry/2017/08/01/083126" target="_blank" rel="noreferrer"&gt;プログラマをクソコードで殴り続けると死ぬ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ものがわかるということ&lt;/li&gt;
+&lt;li&gt;思考の整理学&lt;/li&gt;
+&lt;li&gt;バカの壁&lt;/li&gt;
+&lt;li&gt;住宅購入の思考法&lt;/li&gt;
+&lt;li&gt;知的複眼思考法&lt;/li&gt;
+&lt;li&gt;ゲンロン戦記&lt;/li&gt;
+&lt;li&gt;暇と退屈の倫理学&lt;/li&gt;
+&lt;li&gt;遊撃戦論&lt;/li&gt;
+&lt;li&gt;世界は贈与でできている&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://web.archive.org/web/20201227134641/https://www.fbs.osaka-u.ac.jp/labs/nakano/essay_020.html" target="_blank" rel="noreferrer"&gt;なかのとおるのつぶやき なんのために学ぶのか&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.waseda.jp/inst/weekly/news/2020/06/09/75294/" target="_blank" rel="noreferrer"&gt;えび茶ゾーン - 言い残すこと&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;里山資本主義&lt;/li&gt;
+&lt;li&gt;脱炭素経営入門&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://spa-game.com/?p=4474" target="_blank" rel="noreferrer"&gt;スパ帝国 ルールデザインの話&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;夜と霧&lt;/li&gt;
+&lt;li&gt;はじめての構造主義&lt;/li&gt;
+&lt;li&gt;寝ながら学べる構造主義&lt;/li&gt;
+&lt;li&gt;目的への抵抗&lt;/li&gt;
+&lt;li&gt;不道徳教育講座&lt;/li&gt;
+&lt;li&gt;葉隠入門&lt;/li&gt;
+&lt;li&gt;絶筆(野坂昭如)&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.dailymotion.com/video/xzpw1s" target="_blank" rel="noreferrer"&gt;桂枝雀　緊張と緩和　古典落語サゲの四分類&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;</description></item></channel></rss>
