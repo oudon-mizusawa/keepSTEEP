@@ -2,8 +2,6 @@
 title: "About"
 ---
 
-経歴など
-
 ---
 
 # Work
@@ -58,7 +56,6 @@ title: "About"
 
 - 株式会社ソラコム
   - SORACOM Summer Challenge 2020 ファイナリスト選出
-  - [![SORACOM Summer Challenge 2020](https://img.youtube.com/vi/aHRFvY7QEAQ/0.jpg)](https://www.youtube.com/watch?v=aHRFvY7QEAQ)
 - [立命館大学 「IoT ハンズオン -実際に体験-」](https://www.ritsumei.ac.jp/ba/education/course/course_5/news/detail.html/?news_id=3)
 
 ---

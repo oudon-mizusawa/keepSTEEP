@@ -1,0 +1,21 @@
+[[main]]
+  name = "Blog"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 20
+
+[[main]]
+  name = "Exhibition"
+  pageRef = "exhibition"
+  weight = 30
+
+[[main]]
+  name = "Favorite Books"
+  pageRef = "favorite_books"
+  weight = 40
+
+

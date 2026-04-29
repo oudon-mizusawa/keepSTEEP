@@ -8,6 +8,12 @@
 /assets/jsconfig.json
 hugo_stats.json
 
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Screenshots saved at project root
+/*.png
+
 # Executable may be added to repository
 hugo.exe
 hugo.darwin

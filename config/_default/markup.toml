@@ -1,0 +1,15 @@
+[goldmark]
+  [goldmark.parser]
+    wrapStandAloneImageWithinParagraph = false
+    [goldmark.parser.attribute]
+      block = true
+  [goldmark.renderer]
+    unsafe = true
+
+[highlight]
+  noClasses = false
+  style = "github-dark"
+
+[tableOfContents]
+  startLevel = 2
+  endLevel = 4

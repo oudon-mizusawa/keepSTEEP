@@ -1,0 +1,2 @@
+footer:
+  powered_by: "build by {{ .Hugo }} &amp; {{ .Theme }}"

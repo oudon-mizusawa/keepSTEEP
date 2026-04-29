@@ -1,0 +1,43 @@
+{{ $disableImageOptimization := .Site.Params.disableImageOptimization | default false }}
+<article
+  class="{{ if not .Site.Params.homepage.showRecent }}h-full{{ end }} flex flex-col">
+  <header class="relative px-1 py-1 flex flex-col mb-6">
+    {{ with .Site.Params.Author.image }}
+      {{ $authorImage := "" }}
+      {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+        {{ $authorImage = resources.GetRemote . }}
+      {{ else }}
+        {{ $authorImage = resources.Get . }}
+      {{ end }}
+      {{ if $authorImage }}
+        {{ $final := $authorImage }}
+        {{ if not (or $disableImageOptimization (eq $authorImage.MediaType.SubType "svg")) }}
+          {{ $final = $authorImage.Fill (print "1920x1080 q" ($.Site.Params.Author.imagequality | default "90")) }}
+        {{ end }}
+        <figure class="ks-avatar-figure">
+          <img
+            class="ks-avatar"
+            alt="{{ $.Site.Params.Author.name | default `Author` }}"
+            src="{{ $final.RelPermalink }}">
+          <figcaption class="ks-avatar-caption">
+            学生時代、自転車で旅していました。（北海道のライダーさんのバイクに乗っけてもらった時のものです）
+          </figcaption>
+        </figure>
+      {{ end }}
+    {{ end }}
+    {{ with .Site.Params.Author.headline }}
+      <h2 class="text-xl text-neutral-500 dark:text-neutral-400 text-center mt-3">
+        {{ . | markdownify }}
+      </h2>
+    {{ end }}
+    {{ if .Site.Params.Author.links }}
+      <div class="mt-2 text-2xl text-center">
+        {{ partialCached "author-links.html" . }}
+      </div>
+    {{ end }}
+  </header>
+  <section class="prose dark:prose-invert w-full ks-home-prose">{{ .Content }}</section>
+</article>
+<section>
+  {{ partial "recent-articles/main.html" . }}
+</section>

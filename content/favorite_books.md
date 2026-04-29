@@ -2,8 +2,6 @@
 title: "Favorite Books"
 ---
 
-好きな本とか記事とか。
-
 ---
 
 # 技術
@@ -24,7 +22,7 @@ title: "Favorite Books"
 - [ArchWiki](https://wiki.archlinux.jp/index.php/%E3%83%A1%E3%82%A4%E3%83%B3%E3%83%9A%E3%83%BC%E3%82%B8)
 - PostgreSQL 設計・運用計画の鉄則
 - [体温計をバラしただけなのに](https://techbookfest.org/product/rmXP2Zhf5nrErZwFdnZJ8v?productVariantID=dzKy5YJNSgZytuG8NXje0h)
-- 算理論の基礎 [原著第 2 版] 1.オートマトンと言語
+- 計算理論の基礎 [原著第 2 版] 1.オートマトンと言語
 
 ---
 
@@ -59,6 +57,7 @@ title: "Favorite Books"
 - 上司はなぜ無能なのか？
 - 40 歳までの「売れるキャリア」の作りかた 橘・フクシマ・咲江
 - 宣伝は差異が全て　邪神ちゃんドロップキックからマーケティングを学ぶ
+- 「ついやってしまう」体験のつくりかた 人を動かす「直感・驚き・物語」のしくみ 
 
 ---
 
@@ -95,7 +94,7 @@ title: "Favorite Books"
 - 暇と退屈の倫理学
 - 遊撃戦論
 - 世界は贈与でできている
-- [なかのとおるのつぶやき なんのために学ぶのか](https://www.fbs.osaka-u.ac.jp/labs/nakano/essay_020.html)「専門のことであろうが、専門外のことであろうが、要するにものごとを自分の頭で考え、自分の言葉で自分の意見を表明できるようになるため。たったそれだけのことです。そのために勉強するのです。」
+- [なかのとおるのつぶやき なんのために学ぶのか](https://web.archive.org/web/20201227134641/https://www.fbs.osaka-u.ac.jp/labs/nakano/essay_020.html)
 - [えび茶ゾーン - 言い残すこと](https://www.waseda.jp/inst/weekly/news/2020/06/09/75294/)
 - 里山資本主義
 - 脱炭素経営入門

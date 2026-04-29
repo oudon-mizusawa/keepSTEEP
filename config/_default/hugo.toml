@@ -1,0 +1,47 @@
+theme = "blowfish"
+
+baseURL = "https://oudon-mizusawa.github.io/keepSTEEP/"
+defaultContentLanguage = "ja"
+
+enableRobotsTXT = true
+hasCJKLanguage = true
+enableEmoji = true
+summaryLength = 30
+
+buildDrafts = false
+buildFuture = false
+
+[pagination]
+  pagerSize = 30
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+  author = "authors"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[services.disqus]
+  shortname = "keep steep"
+
+[services.googleAnalytics]
+  ID = "G-DNZQ0C6CHB"
+
+[related]
+  threshold = 0
+  toLower = false
+
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "categories"
+    weight = 80
+  [[related.indices]]
+    name = "series"
+    weight = 50
+  [[related.indices]]
+    name = "date"
+    weight = 10
