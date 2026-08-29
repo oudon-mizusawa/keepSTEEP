@@ -5,14 +5,10 @@ const nextConfig: NextConfig = {
   // Node を常駐させずに配れるよう、静的書き出しにする
   output: 'export',
   /*
-   * GitHub Pages のプロジェクトページは
-   *   https://oudon-mizusawa.github.io/keepSTEEP/
-   * のように «リポジトリ名の下» で配られる。
-   * basePath を入れておかないと、/avatar.png のような先頭スラッシュ付きのパスが
-   * ドメイン直下を指してしまい、画像も CSS も全部 404 になる。
-   * next/image と next/link は basePath を自動で足してくれるので、指定はここだけでよい。
+   * リポジトリ名の下で配るときだけ basePath が要る。
+   * 今は root 配信なので空。空文字を渡すと Next に怒られるので、項目ごと出さない。
    */
-  basePath: BASE_PATH,
+  ...(BASE_PATH ? { basePath: BASE_PATH } : {}),
   images: {
     // 静的書き出しでは next/image の最適化が使えない。
     // 切り抜き画像は CI 側で sharp を通して事前圧縮する方針。

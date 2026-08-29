@@ -1,7 +1,8 @@
 /**
- * GitHub Pages のプロジェクトページは
- *   https://oudon-mizusawa.github.io/keepSTEEP/
- * のようにリポジトリ名の下で配られる。その «下» の部分。
+ * サイトを配る場所のプレフィックス。
+ *
+ * 今は oudon-mizusawa.github.io（ユーザーサイト）の root で配っているので空。
+ * リポジトリ名の下（プロジェクトページ）に移すときだけ '/リポジトリ名' を入れる。
  *
  * next/link と、最適化ありの next/image は basePath を自動で足してくれるが、
  * images.unoptimized: true にしていると next/image は src をそのまま出すため、
@@ -10,11 +11,12 @@
  *
  * next.config.ts もこの値を読むので、変えるときはここ 1 箇所でよい。
  */
-export const BASE_PATH = '/keepSTEEP';
+export const BASE_PATH = '';
 
 /** public 配下の絶対パスに basePath を足す。外部URLやデータURIはそのまま返す */
 export function asset(src: string): string {
   if (!src.startsWith('/')) return src;
+  if (!BASE_PATH) return src;
   if (src.startsWith(`${BASE_PATH}/`)) return src;
   return `${BASE_PATH}${src}`;
 }
