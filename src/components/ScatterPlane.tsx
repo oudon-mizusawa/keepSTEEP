@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { AnimatePresence } from 'motion/react';
 import type { Item, Placed } from '@/lib/items';
 import { layoutFor, type Slot } from '@/lib/scatter';
 import { useIsMobile } from '@/lib/useIsMobile';
@@ -55,7 +54,8 @@ export default function ScatterPlane({ items }: { items: Item[] }) {
       }}
     >
       <div className="plane__stage">
-        <AnimatePresence mode="popLayout">
+        {/* 絞り込みをやめたので退場するものはない。
+            AnimatePresence の popLayout は測定コストが高いだけになるため外した */}
           {items.map((item) => {
             const slot = slots.get(item.slug) ?? DEFAULT_SLOT;
             return (
@@ -66,10 +66,10 @@ export default function ScatterPlane({ items }: { items: Item[] }) {
                 active={touched === item.slug}
                 onActivate={setTouched}
                 draggable={!isMobile}
+                float={!isMobile}
               />
             );
           })}
-        </AnimatePresence>
       </div>
 
       <nav className="nav">

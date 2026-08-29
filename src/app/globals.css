@@ -1014,11 +1014,18 @@ body {
   background-color: var(--sun);
 }
 
-/* 読み込み完了で消す */
+/* 読み込み完了で消す。
+   visibility: hidden ではアニメーションは止まらないので、明示的に止める。
+   放っておくと、見えない円が延々と回り続けて電池と CPU を食う */
 .spinner-box.loaded {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+}
+
+.spinner-box.loaded .spinner,
+.spinner-box.loaded .spinner span {
+  animation: none;
 }
 
 .spinner {

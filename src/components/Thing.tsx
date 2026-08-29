@@ -23,6 +23,7 @@ export default function Thing({
   active,
   onActivate,
   draggable = true,
+  float = true,
 }: {
   item: Placed;
   pos: { x: number; y: number };
@@ -35,6 +36,8 @@ export default function Thing({
    * 指のスワイプがドラッグに吸われて、ページを縦にスクロールできなくなるため。
    */
   draggable?: boolean;
+  /** ゆっくり漂わせるか。非力な端末では止める */
+  float?: boolean;
 }) {
   // ドラッグで摘まんだのか、クリックしたのかを区別する。
   // これが無いと、少し動かしただけで遷移してしまう。
@@ -47,7 +50,8 @@ export default function Thing({
 
   return (
     <motion.div
-      layout
+      /* layout は付けない。並び替えも絞り込みもしないので、
+         18 枚ぶんの寸法測定と差分アニメが毎レンダリング走るだけ損になる */
       className={active ? 'thing is-active' : 'thing'}
       // top は vh（絶対長さ）で置く。% だと親の高さに対する割合になり、
       // 物が増えて平面を下に伸ばしても、既存の物まで一緒に間延びしてしまう。
@@ -72,10 +76,11 @@ export default function Thing({
         }
         transition={SPRING}
       >
-        {/* ゆらぎ */}
+        {/* ゆらぎ。18 枚ぶんが毎フレーム動き続けるので、
+            非力な端末では効かせない（摘まめないモバイルでは効果も薄い） */}
         <motion.div
-          animate={{ y: [0, -drift, 0] }}
-          transition={{ duration: dur, repeat: Infinity, ease: 'easeInOut' }}
+          animate={float ? { y: [0, -drift, 0] } : undefined}
+          transition={float ? { duration: dur, repeat: Infinity, ease: 'easeInOut' } : undefined}
         >
           <Link
             href={item.href}
