@@ -1,0 +1,8 @@
+node_modules/
+.next/
+out/
+.DS_Store
+.context/
+.gstack/
+next-env.d.ts
+tsconfig.tsbuildinfo

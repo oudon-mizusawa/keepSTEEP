@@ -1,0 +1,1103 @@
+:root {
+  /* --- keepSTEEP パレット D: 黄 × 紫（補色） --- */
+  /* ヒーローの地。黄 */
+  --sun: #f7c948;
+  /* 文字と締めの色。葡萄。黄の補色側に置くことで最も強く目を引く */
+  --ink: #3b2f63;
+  /* 散らかし平面の地。白鼠 */
+  --paper: #e4e0da;
+  /* 和紙の地合い。面の「背景」として敷く。
+     前面にオーバーレイすると写真まで曇るので、絶対に被せない
+     （参照した宿古今・玉鶴寺・難波宮も全て背景側に置いている）。
+     タイル自身の平均色を --paper に一致させてあるので色はズレない。
+     粒の強さは feFunc の slope（下の 0.068）で決まる。0 で無地。
+     --paper を変えたら intercept も直す: intercept = 各チャンネル値/255 - slope/2 */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='5' seed='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='0.068' intercept='0.860'/%3E%3CfeFuncG type='linear' slope='0.068' intercept='0.844'/%3E%3CfeFuncB type='linear' slope='0.068' intercept='0.821'/%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23w)'/%3E%3C/svg%3E");
+  /* 差し色の青緑。面・点として使う装飾用（文字には使わない） */
+  --teal: #4fa88b;
+  /* ナビ文字用に暗く落とした青緑。
+     #4fa88b を白鼠に載せると約 2.2:1 しかなく小さい文字が読めないため、
+     4.5:1 を超えるところまで落としている */
+  --accent: #26614f;
+  /* 屋号（太く丸い欧文） */
+  --font-display: var(--font-display-src), system-ui, sans-serif;
+  /* 見出し・本文の和文（厚みのある丸ゴシック） */
+  --font-sans: var(--font-sans-src), system-ui, sans-serif;
+  /* 実測値・ナビ・タグ。機械が出す値であることを字面で示す */
+  --font-mono: var(--font-mono-src), ui-monospace, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* 地合いは body の背景として敷く。body の背景はキャンバス全体に伸びるので、
+   スクロールしても途切れない。前面に被せないので写真や文字は一切曇らない。 */
+body {
+  background: var(--paper) var(--paper-grain) 0 0 / 500px 500px repeat;
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+.plane {
+  position: relative;
+  /* 実際の高さは物の数に応じて ScatterPlane がインラインで指定する */
+  min-height: 100dvh;
+  width: 100%;
+  /* 地は body が持つ。ここで塗り直すと地合いを覆い隠してしまう */
+  background: transparent;
+}
+
+/* --- ヒーロー。何をしている人かをここで確実に伝える --- */
+
+/* 丈の長い透明な器。この中をスクロールしている間、中の .hero は画面に貼り付いたまま */
+.hero-track {
+  position: relative;
+  height: 180dvh;
+}
+
+.hero {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  background: var(--sun);
+  display: grid;
+  place-items: center;
+  padding: 6rem 2rem 8rem;
+  /* 下端を弧で切る（lab.aiueo のセクション区切り） */
+  border-bottom-left-radius: 50% 4rem;
+  border-bottom-right-radius: 50% 4rem;
+  /* 弧で切りたいが、坂を登る文字は切りたくないので x だけ隠す */
+  overflow-x: clip;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 10;
+  width: min(64rem, 100%);
+}
+
+.hero__lead {
+  font-family: var(--font-sans);
+  margin-top: 2.6rem;
+  font-size: clamp(0.82rem, 1.35vw, 0.95rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 2;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+
+.hero__body {
+  margin-top: 1.1rem;
+  font-size: clamp(0.86rem, 1.5vw, 1rem);
+  line-height: 2;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
+.hero__stack {
+  margin-top: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.pill {
+  font-family: var(--font-mono);
+  padding: 0.42rem 1.05rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--sun);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+}
+
+.hero__cue {
+  position: absolute;
+  bottom: 3.2rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 10;
+  font-size: 1.1rem;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+/* --- 屋号。keep は静かに、STEEP は坂を登る --- */
+.mark {
+  position: absolute;
+  top: 2.4rem;
+  left: 2.6rem;
+  z-index: 20;
+  display: flex;
+  align-items: baseline;
+  gap: 0.1em;
+  text-decoration: none;
+  color: var(--ink);
+  /* 登る余地を確保する */
+  padding: 0.9rem 0.4rem 0.4rem 0;
+}
+
+/* ヒーロー内では主役サイズ。position も通常フローに戻す */
+.mark--hero {
+  position: static;
+  display: flex;
+  /* 12° まで登っても切れないだけの高さを確保しておく */
+  padding: 5.5rem 0 0.8rem;
+}
+
+.mark--hero .mark__keep {
+  font-size: clamp(1.7rem, 4.6vw, 3.1rem);
+}
+
+.mark--hero .mark__ch {
+  font-size: clamp(2.1rem, 5.8vw, 3.9rem);
+}
+
+.mark__keep {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+
+.mark__steep {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.mark__ch {
+  font-family: var(--font-display);
+  display: inline-block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  transform-origin: 50% 80%;
+}
+
+/* 1 文字ずつ摘まめる。平面の物と同じ手触りにする */
+.mark__grab {
+  display: inline-block;
+  cursor: grab;
+}
+
+.plane__stage {
+  position: absolute;
+  inset: 0;
+}
+
+/* --- 散らかっている物 --- */
+.thing {
+  position: absolute;
+  translate: -50% -50%;
+  cursor: grab;
+  user-select: none;
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+}
+
+/* 重なっているので、触れているものを最前面に持ち上げる */
+.thing:hover,
+.thing:focus-within {
+  z-index: 30;
+}
+
+.thing__art {
+  display: block;
+  /* 物として存在感を出す。小さいと「アイコン」に見えてしまう */
+  font-size: clamp(3.4rem, 6.5vw, 6rem);
+  line-height: 1;
+  filter: drop-shadow(0 10px 14px rgb(35 31 32 / 0.18));
+}
+
+/* ラベルは普段は消えている。物だけが置かれている状態を保つ */
+.thing__label {
+  font-family: var(--font-mono);
+  display: block;
+  text-align: center;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  white-space: nowrap;
+}
+
+.thing:hover .thing__label {
+  opacity: 1;
+}
+
+/* --- マウスが通った道に落ちる四角。触るものの上に乗るが、操作は邪魔しない --- */
+.trail {
+  position: fixed;
+  inset: 0;
+  /* ナビ(50)より上、読み込み中の幕(9999)より下 */
+  z-index: 200;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.trail__bit {
+  position: absolute;
+  display: block;
+  will-change: transform, opacity;
+}
+
+/* --- ナビ。平面がどれだけ伸びても、常に画面に対して固定 --- */
+.nav {
+  position: fixed;
+  right: 3.2rem;
+  bottom: 3.2rem;
+  display: grid;
+  justify-items: end;
+  gap: 0.85rem;
+  z-index: 50;
+}
+
+.nav__link {
+  font-family: var(--font-mono);
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, letter-spacing 0.2s ease;
+  /* 写真の上に来ても読めるよう、文字の輪郭に地色を回す。
+     矩形のパネルを敷くと板が浮いて見えるので、縁取りで処理する */
+  text-shadow:
+    0 0 3px var(--paper),
+    0 0 3px var(--paper),
+    0 0 6px var(--paper),
+    0 0 10px var(--paper);
+}
+
+.nav__link:hover,
+.nav__link.is-on {
+  opacity: 1;
+  letter-spacing: 0.3em;
+}
+
+/* 平面は下に長い。物を見終わった人が、指を戻さずに先頭へ帰れるようにする。
+   ナビと同じ字面・同じ縁取りで、絞り込みの並びの上に 1 つだけ置く */
+.nav__top {
+  font-family: var(--font-mono);
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--accent);
+  cursor: pointer;
+  opacity: 0.55;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  text-shadow:
+    0 0 3px var(--paper),
+    0 0 3px var(--paper),
+    0 0 6px var(--paper),
+    0 0 10px var(--paper);
+}
+
+.nav__top:hover,
+.nav__top:focus-visible {
+  /* 行き先が上であることを、動きでも言う */
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+/* --- 実測値。説明せずに、ただ置く。平面が伸びても画面に対して固定 --- */
+.hud {
+  font-family: var(--font-mono);
+  position: fixed;
+  left: 2rem;
+  bottom: 1.6rem;
+  display: flex;
+  gap: 1.4rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+  z-index: 50;
+  text-shadow:
+    0 0 3px var(--paper),
+    0 0 6px var(--paper);
+}
+
+@media (max-width: 640px) {
+  .thing__art {
+    font-size: 2.3rem;
+  }
+
+  /* --- モバイル。狭いので写真を絞り、屋号とナビの重なりを避ける --- */
+
+  .thing__photo {
+    width: clamp(7rem, 38vw, 10rem);
+    border-width: 4px;
+  }
+
+  .mark {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.4rem 0.5rem 0.3rem 0;
+  }
+
+  .mark--hero {
+    padding: 4rem 0 0.8rem;
+  }
+
+  /* ナビは絶対に右下。ここは操作するところなので、
+     ロゴのように透過で逃がすのではなく、確実に読める状態を保つ。
+     下端に地色の帯を敷いて、写真がその上に来ないようにする */
+  .nav {
+    right: 1rem;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom));
+    gap: 0.55rem;
+  }
+
+  /* 下端の帯。ナビと実測値が乗る土台 */
+  .plane::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(6.5rem + env(safe-area-inset-bottom));
+    z-index: 40;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      var(--paper) 0%,
+      var(--paper) 55%,
+      transparent 100%
+    );
+  }
+
+  .nav__link {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+  }
+
+  .nav__top {
+    font-size: 0.85rem;
+  }
+
+  .nav__link:hover,
+  .nav__link.is-on {
+    letter-spacing: 0.18em;
+  }
+
+  /* 実測値は左下。ナビと同じ高さに並ぶので幅を取りすぎないようにする */
+  .hud {
+    left: 1rem;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom));
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.54rem;
+  }
+}
+
+/* ============================================================
+   詳細ページ / rirekisho
+   平面から「物を手に取って見ている」状態。世界観は崩さない。
+   ============================================================ */
+
+.sheet {
+  position: relative;
+  min-height: 100dvh;
+  /* 地は body が持つ。ここで塗り直すと地合いを覆い隠してしまう */
+  background: transparent;
+  padding: 8.5rem 2rem 6rem;
+}
+
+.article {
+  width: min(42rem, 100%);
+  margin: 0 auto;
+}
+
+.article__art {
+  display: block;
+  font-size: clamp(3.6rem, 8vw, 5.4rem);
+  line-height: 1;
+  margin-bottom: 1.6rem;
+  filter: drop-shadow(0 10px 14px rgb(35 31 32 / 0.18));
+}
+
+.article__meta {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+}
+
+.article__cat {
+  color: var(--accent);
+}
+
+.article__date {
+  color: color-mix(in srgb, var(--ink) 42%, transparent);
+}
+
+.article__title {
+  margin: 0.7rem 0 2.4rem;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.article__title--plain {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+
+/* --- 本文 --- */
+.prose {
+  font-size: 0.95rem;
+  line-height: 2.05;
+  color: color-mix(in srgb, var(--ink) 84%, transparent);
+}
+
+.prose--empty {
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+
+.prose > * + * {
+  margin-top: 1.3rem;
+}
+
+.prose h2 {
+  margin-top: 3rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.prose h3 {
+  margin-top: 2.2rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.3rem;
+}
+
+.prose li + li {
+  margin-top: 0.5rem;
+}
+
+.prose strong {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.prose a {
+  color: var(--accent);
+  text-underline-offset: 0.25em;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: color-mix(in srgb, var(--ink) 9%, transparent);
+  padding: 0.15em 0.45em;
+  border-radius: 0.35rem;
+}
+
+.prose pre {
+  background: var(--ink);
+  color: var(--sun);
+  padding: 1.1rem 1.3rem;
+  border-radius: 0.9rem;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.7rem 0.6rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.prose th {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+/* ============================================================
+   rirekisho。紙の履歴書から「罫線・空行・以上・字間の見出し」だけを借りる。
+   参照: 厚生労働省履歴書様式例（JIS 規格の様式例は令和2年7月に廃止済み）
+   フォントは丸ゴシックのまま、顔も丸のまま。書式感は罫線だけで出す。
+   ============================================================ */
+
+/* 外枠は太く、内側の仕切りは細い。本物の様式がこの二段構え */
+.prose--rirekisho table {
+  border: 2px solid var(--ink);
+}
+
+.prose--rirekisho th,
+.prose--rirekisho td {
+  border: 1px solid color-mix(in srgb, var(--ink) 26%, transparent);
+  padding: 0.6rem 0.75rem;
+  /* 何も書いていない行にも高さを持たせる。
+     「書ける欄が余っている」状態こそが履歴書の見た目の核 */
+  height: 2.7rem;
+  vertical-align: top;
+}
+
+.prose--rirekisho th {
+  text-align: center;
+  /* 見出しの字間を開ける。本物の「学　歴・職　歴」の組み方 */
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  border-bottom-width: 2px;
+}
+
+/* 期間の列は細く固定する。本物の 年 / 月 欄にあたる */
+.prose--rirekisho th:first-child,
+.prose--rirekisho td:first-child {
+  width: clamp(7.5rem, 36%, 12rem);
+  /* 和文は文字単位で折れるので、放っておくと「2021年12 / 月〜2024年2 / 月」になる。
+     keep-all で日付の途中を切らせず、範囲の «〜» でだけ折り返させる */
+  word-break: keep-all;
+}
+
+/* 職歴の締め。本物と同じく右寄せで置く */
+.rireki-end {
+  display: block;
+  text-align: right;
+}
+
+/* 備考。本物の様式でいう「本人希望記入欄」にあたる、罫線で囲った自由記入欄。
+   引用ではなく «欄» に見せたいので、blockquote の縦棒ではなく枠で囲う */
+/* .prose blockquote と詳細度が並ぶと、後に書かれている側（緑の縦棒）が勝つ。
+   クラスを 2 つ重ねて確実に上書きする */
+.prose.prose--rirekisho blockquote {
+  border: 2px solid var(--ink);
+  padding: 1.1rem 1.2rem;
+  margin-left: 0;
+  /* 空欄が残っている紙の感じを出すため、書いた量より少し広く取る */
+  min-height: 11rem;
+  font-style: normal;
+  color: inherit;
+}
+
+.prose.prose--rirekisho blockquote p + p {
+  margin-top: 0.9rem;
+}
+
+/* --- スキル欄。言語 / DB / OS で表を分けず、1 枚にしてカテゴリで絞る --- */
+.skills {
+  margin-top: 1.6rem;
+}
+
+.skills__filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+/* ヒーローの .pill と同じ語彙。ただし «押せる» ことがわかるよう、
+   選んでいないうちは枠だけにして塗りつぶさない */
+.skills__pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 0.36rem 0.85rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.skills__pill:hover {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.skills__pill.is-on {
+  background: var(--ink);
+  color: var(--sun);
+}
+
+/* 件数。数を出すのはこのサイトの癖に合わせている */
+.skills__count {
+  margin-left: 0.5rem;
+  opacity: 0.62;
+}
+
+.skills__pill.is-on .skills__count {
+  opacity: 0.75;
+}
+
+/* 罫線は履歴書の他の欄と揃える。こちらは 3 列 */
+.skills table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  border: 2px solid var(--ink);
+}
+
+.skills th,
+.skills td {
+  border: 1px solid color-mix(in srgb, var(--ink) 26%, transparent);
+  padding: 0.6rem 0.75rem;
+  height: 2.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.skills th {
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  border-bottom-width: 2px;
+}
+
+/* 本物の 年 / 月 欄と同じで、左の 2 列は細く固定する */
+.skills th:nth-child(1),
+.skills td:nth-child(1) {
+  width: clamp(7rem, 26%, 10.5rem);
+  word-break: keep-all;
+}
+
+.skills th:nth-child(2),
+.skills td:nth-child(2) {
+  width: clamp(4.2rem, 16%, 6rem);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .skills__pill {
+    font-size: 0.68rem;
+    padding: 0.32rem 0.7rem;
+  }
+}
+
+/* 節の見出しも字間を開けて、書式の一部に見せる */
+.prose--rirekisho h2 {
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+}
+
+.prose blockquote {
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--teal);
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+/* --- 戻る --- */
+.back {
+  display: inline-block;
+  margin-top: 4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: letter-spacing 0.2s ease;
+}
+
+.back:hover {
+  letter-spacing: 0.3em;
+}
+
+/* 物そのものがリンクになる。見た目は変えない */
+.thing__link {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav__link--page {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.thing__art {
+  position: relative;
+}
+
+/* --- パンくず・前後の記事 --- */
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-decoration: none;
+  transition: letter-spacing 0.2s ease;
+}
+
+.crumb:hover {
+  letter-spacing: 0.2em;
+}
+
+.siblings {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.siblings__link {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--accent);
+  text-decoration: none;
+  max-width: 46%;
+}
+
+.siblings__link--next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.siblings__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* ============================================================
+   物を開いた先の一覧
+   トップの散らかしは「発見」の言語。ここは「読む」ための形にする。
+   ============================================================ */
+
+.sheet--index {
+  padding-top: 8rem;
+}
+
+.index {
+  width: min(46rem, 100%);
+  margin: 0 auto;
+}
+
+.index__head {
+  display: flex;
+  gap: 1.3rem;
+  align-items: flex-start;
+  padding-bottom: 2.2rem;
+  margin-bottom: 2.2rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.index__art {
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  line-height: 1;
+  filter: drop-shadow(0 9px 13px rgb(35 31 32 / 0.18));
+}
+
+.index__title {
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.index__intro {
+  margin-top: 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.9;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+}
+
+.entries {
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.1rem;
+  align-items: center;
+  padding: 1.15rem 1.4rem;
+  border-radius: 1.1rem;
+  background: color-mix(in srgb, #fff 42%, var(--paper));
+  text-decoration: none;
+  color: inherit;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.entry:hover {
+  background: color-mix(in srgb, #fff 78%, var(--paper));
+  transform: translateY(-2px);
+}
+
+.entry__art {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.entry__text {
+  display: grid;
+  gap: 0.28rem;
+  min-width: 0;
+}
+
+.entry__title {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.entry__excerpt {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--ink) 58%, transparent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.entry__date {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink) 42%, transparent);
+  white-space: nowrap;
+}
+
+.index .back {
+  margin-top: 3rem;
+}
+
+@media (max-width: 560px) {
+  .entry {
+    grid-template-columns: auto 1fr;
+    row-gap: 0.5rem;
+  }
+  .entry__date {
+    grid-column: 2;
+  }
+  .entry__excerpt {
+    white-space: normal;
+  }
+}
+
+/* --- rirekisho の顔。仕事を頼むか判断するページなので、ここだけ顔を出す --- */
+.who {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 2.6rem;
+}
+
+.who__avatar {
+  width: clamp(4.4rem, 11vw, 6rem);
+  height: clamp(4.4rem, 11vw, 6rem);
+  /* 画像は被写体に合わせて正方形に切ってあるので、位置合わせは要らない。
+     元画像(1024x877)のままだと下端 49px の余白まで円に入り、
+     下に白い帯が横切って「途切れて」見えていた */
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 0 10px 22px rgb(35 31 32 / 0.14);
+  flex-shrink: 0;
+}
+
+.who__name {
+  margin: 0;
+}
+
+/* --- 実物写真を「物」として置く。紙焼きを机に放った感じにする --- */
+.thing__photo {
+  display: block;
+  /* 机に散らかっている状態。端が少し触れ合う程度に留め、重ねすぎない */
+  width: clamp(9.5rem, 17vw, 14.5rem);
+  height: auto;
+  border-radius: 0.4rem;
+  /* 白フチで紙焼きっぽく */
+  border: 6px solid #fbfaf7;
+  box-shadow: 0 16px 30px rgb(35 31 32 / 0.24);
+  object-fit: cover;
+}
+
+.index__photo {
+  width: clamp(4.5rem, 11vw, 6.5rem);
+  height: auto;
+  border-radius: 0.3rem;
+  border: 4px solid #fbfaf7;
+  box-shadow: 0 9px 16px rgb(35 31 32 / 0.18);
+  flex-shrink: 0;
+}
+
+.entry__photo {
+  width: 3.1rem;
+  height: 3.1rem;
+  object-fit: cover;
+  border-radius: 0.3rem;
+  border: 3px solid #fbfaf7;
+  box-shadow: 0 5px 10px rgb(35 31 32 / 0.16);
+}
+
+.article__photo {
+  display: block;
+  width: min(26rem, 100%);
+  height: auto;
+  border-radius: 0.4rem;
+  border: 6px solid #fbfaf7;
+  box-shadow: 0 14px 28px rgb(35 31 32 / 0.2);
+  margin-bottom: 1.8rem;
+}
+
+/* --- 趣味。仕事のピルとは別物だと一目でわかる形にする --- */
+.hero__hobby {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  margin-top: 1.7rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  max-width: 22rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+}
+
+.hero__hobby-key {
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  color: color-mix(in srgb, var(--ink) 42%, transparent);
+}
+
+
+/* ============================================================
+   読み込み中のスピナー
+   digipress の CSS ローディングアニメーション type1 をそのまま使う。
+   https://digipress.info/tech/css-spinner-animation-demo/
+   配色だけサイトに合わせ、地は黄・スピナーはグレー。
+   ============================================================ */
+
+.spinner-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 9999;
+  transition: all 1.2s ease;
+  /* ローディングアニメーションカラー */
+  color: #8d8b86;
+  /* 背景カラー */
+  background-color: var(--sun);
+}
+
+/* 読み込み完了で消す */
+.spinner-box.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  width: 120px;
+  height: 120px;
+}
+
+.spinner span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.spinner.type1 {
+  border-radius: 50%;
+  border-width: 8px;
+  border-style: solid;
+  /* 濃いグレー 1 辺 + 残りは薄いグレー */
+  border-color: #8d8b86 rgb(141 139 134 / 0.16) rgb(141 139 134 / 0.16);
+  animation: spinner1_1 1.5s infinite linear forwards;
+}
+
+.spinner.type1 span {
+  animation: spinner_loading_text 1.5s infinite linear forwards reverse;
+}
+
+@keyframes spinner1_1 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spinner_loading_text {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  50% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner.type1,
+  .spinner.type1 span {
+    animation: none;
+  }
+
+  .nav__top,
+  .nav__top:hover,
+  .nav__top:focus-visible {
+    transition: none;
+    transform: none;
+  }
+}
