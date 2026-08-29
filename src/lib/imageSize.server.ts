@@ -14,8 +14,9 @@ import path from 'node:path';
 /**
  * EXIF の Orientation を読む。無ければ 1。
  *
- * これを見ないと縦横を取り違える。実際 kurorekishi.jpg はファイル上 720x425 だが、
- * ブラウザは Orientation にしたがって 425x720（縦長）で表示する。
+ * これを見ないと縦横を取り違える。手元の写真にも実際 1 枚あり、ファイル上は
+ * 720x425 なのにブラウザは Orientation にしたがって 425x720（縦長）で表示していた。
+ * （今は WebP へ変換するときに回転を画素へ焼き込んでいるので該当はない）
  * 縦横比を配置の計算に使っているので、取り違えるとカードが重なる。
  */
 function exifOrientation(buf: Buffer, app1Start: number, app1Len: number): number {
