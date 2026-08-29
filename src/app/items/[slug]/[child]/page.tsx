@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import BackLink from '@/components/BackLink';
 import Image from 'next/image';
+import { asset } from '@/lib/basePath';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getChild, getItem, getItems, renderMarkdown } from '@/lib/content.server';
@@ -51,7 +52,7 @@ export default async function ChildPage({
           </Link>
 
           {c.image ? (
-            <Image src={c.image} alt="" width={640} height={480} className="article__photo" />
+            <Image src={asset(c.image)} alt="" width={640} height={480} className="article__photo" />
           ) : (
             <span className="article__art" aria-hidden="true">
               {c.emoji ?? '◻︎'}

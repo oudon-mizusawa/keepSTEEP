@@ -1,1 +1,0 @@
-/Users/oudonchan/dev/oudon-web/oudon-web/.claude/skills/gstack/scrape/SKILL.md

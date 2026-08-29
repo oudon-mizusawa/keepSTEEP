@@ -1,1 +1,0 @@
-/Users/oudonchan/dev/oudon-web/oudon-web/.claude/skills/gstack/plan-ceo-review/SKILL.md

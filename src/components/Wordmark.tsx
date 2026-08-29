@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useTransform, type MotionValue } from 'motion/react';
+import { asset } from '@/lib/basePath';
 
 /**
  * 屋号 keepSTEEP。風景は足さない。主役はこの文字だけ。
@@ -66,7 +67,8 @@ export default function Wordmark({ variant = 'corner', climb }: Props) {
   // 隅の小さいやつ: ホバーで勾配がきつくなる
   return (
     <motion.a
-      href="/"
+      // next/link ではないので basePath は自動で付かない
+      href={asset('/')}
       className="mark"
       initial="rest"
       whileHover="climb"

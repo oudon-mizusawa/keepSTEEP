@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import BackLink from '@/components/BackLink';
 import Image from 'next/image';
+import { asset } from '@/lib/basePath';
 import type { Metadata } from 'next';
 import { getRirekisho, getSkills } from '@/lib/content.server';
 import Wordmark from '@/components/Wordmark';
@@ -29,7 +30,7 @@ export default function RirekishoPage() {
           {/* 仕事を頼むか判断するページなので、ここには顔を出す */}
           <header className="who">
             <Image
-              src="/avatar.png"
+              src={asset("/avatar.png")}
               alt="oudon"
               width={700}
               height={700}

@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { asset } from '@/lib/basePath';
 import { motion } from 'motion/react';
 import { hash } from '@/lib/scatter';
 import type { Placed } from '@/lib/items';
@@ -95,7 +96,7 @@ export default function Thing({
           >
             {item.image ? (
               <Image
-                src={item.image}
+                src={asset(item.image)}
                 alt=""
                 width={320}
                 height={240}

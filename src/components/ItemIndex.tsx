@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import BackLink from './BackLink';
 import Image from 'next/image';
+import { asset } from '@/lib/basePath';
 import { motion } from 'motion/react';
 import type { Child, Item } from '@/lib/items';
 import Wordmark from './Wordmark';
@@ -33,7 +34,7 @@ export default function ItemIndex({ item, intro }: { item: Item; intro: string }
           transition={{ type: 'spring', stiffness: 200, damping: 24 }}
         >
           {item.image ? (
-            <Image src={item.image} alt="" width={200} height={200} className="index__photo" />
+            <Image src={asset(item.image)} alt="" width={200} height={200} className="index__photo" />
           ) : (
             <span className="index__art" aria-hidden="true">
               {item.emoji ?? '◻︎'}
@@ -60,7 +61,7 @@ export default function ItemIndex({ item, intro }: { item: Item; intro: string }
             >
               <Link href={`/items/${item.slug}/${c.slug}`} className="entry">
                 {c.image ? (
-                  <Image src={c.image} alt="" width={120} height={120} className="entry__photo" />
+                  <Image src={asset(c.image)} alt="" width={120} height={120} className="entry__photo" />
                 ) : (
                   <span className="entry__art" aria-hidden="true">
                     {c.emoji ?? '◻︎'}

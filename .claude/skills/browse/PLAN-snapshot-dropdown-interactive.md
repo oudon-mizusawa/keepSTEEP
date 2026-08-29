@@ -1,1 +1,0 @@
-/Users/oudonchan/dev/oudon-web/oudon-web/.claude/skills/gstack/browse/PLAN-snapshot-dropdown-interactive.md
