@@ -1,7 +1,7 @@
 ---
 title: 思い出のTシャツ
 category: syumi
-image: /exhibition/omoide-tshirt.jpg
+image: /exhibition/omoide-tshirt.webp
 x: 46
 y: 102
 rotate: -4

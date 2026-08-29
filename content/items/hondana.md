@@ -1,7 +1,7 @@
 ---
 title: 本棚
 category: syumi
-image: /exhibition/hondana.jpg
+image: /exhibition/hondana.webp
 x: 58
 y: 126
 rotate: 5

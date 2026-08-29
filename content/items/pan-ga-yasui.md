@@ -1,7 +1,7 @@
 ---
 title: パンが安い
 category: syumi
-image: /exhibition/pan-ga-yasui.jpg
+image: /exhibition/pan-ga-yasui.webp
 x: 17
 y: 56
 rotate: 4

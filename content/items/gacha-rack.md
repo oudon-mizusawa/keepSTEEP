@@ -1,7 +1,7 @@
 ---
 title: ガチャガチャラックサーバ
 category: syumi
-image: /exhibition/gacha-rack.jpg
+image: /exhibition/gacha-rack.webp
 x: 76
 y: 20
 rotate: -4

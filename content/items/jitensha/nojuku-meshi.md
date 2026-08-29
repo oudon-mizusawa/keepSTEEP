@@ -1,6 +1,6 @@
 ---
 title: 野宿飯
-image: /exhibition/nojuku-meshi.jpg
+image: /exhibition/nojuku-meshi.webp
 ---
 おにぎり、トマトジュース、裂けるチーズをコッヘルで煮込むとお手軽チーズリゾットが出来上がる。
 

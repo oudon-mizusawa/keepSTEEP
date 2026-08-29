@@ -18,3 +18,12 @@ export function asset(src: string): string {
   if (src.startsWith(`${BASE_PATH}/`)) return src;
   return `${BASE_PATH}${src}`;
 }
+
+/**
+ * 平面や一覧に並べる小さいカード用の画像。
+ * 表示は最大 232px なので、詳細ページと同じ 720px を配るのは無駄。
+ * 幅 480px に落とした -sm 版を用意してあるので、そちらへ向ける。
+ */
+export function thumb(src: string): string {
+  return asset(src.replace(/\.webp$/, '-sm.webp'));
+}

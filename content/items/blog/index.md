@@ -1,7 +1,7 @@
 ---
 title: 書いたもの
 category: syumi
-image: /exhibition/notebook.jpg
+image: /exhibition/notebook.webp
 x: 38
 y: 148
 rotate: 7

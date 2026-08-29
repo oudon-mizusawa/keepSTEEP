@@ -71,6 +71,49 @@ function jpegSize(buf: Buffer): { w: number; h: number } | null {
   return null;
 }
 
+/**
+ * WebP の表示サイズを読む。
+ * RIFF コンテナの中の VP8 / VP8L / VP8X のどれかに寸法が入っている。
+ * これを読めないと縦横比が既定値に落ち、平面の積み上げが崩れる。
+ */
+function webpSize(buf: Buffer): { w: number; h: number } | null {
+  if (buf.length < 30) return null;
+  if (buf.toString('ascii', 0, 4) !== 'RIFF') return null;
+  if (buf.toString('ascii', 8, 12) !== 'WEBP') return null;
+
+  const fourCC = buf.toString('ascii', 12, 16);
+
+  // 拡張形式。キャンバスの寸法が 24bit で -1 されて入っている
+  if (fourCC === 'VP8X') {
+    const w = buf.readUIntLE(24, 3) + 1;
+    const h = buf.readUIntLE(27, 3) + 1;
+    return { w, h };
+  }
+
+  // 非可逆。0x9d012a のシグネチャの後に 14bit ずつ
+  if (fourCC === 'VP8 ') {
+    if (buf.readUInt8(23) !== 0x9d || buf.readUInt8(24) !== 0x01 || buf.readUInt8(25) !== 0x2a) {
+      return null;
+    }
+    return {
+      w: buf.readUInt16LE(26) & 0x3fff,
+      h: buf.readUInt16LE(28) & 0x3fff,
+    };
+  }
+
+  // 可逆。1bit のシグネチャの後に 14bit ずつ詰めて入っている
+  if (fourCC === 'VP8L') {
+    if (buf.readUInt8(20) !== 0x2f) return null;
+    const bits = buf.readUInt32LE(21);
+    return {
+      w: (bits & 0x3fff) + 1,
+      h: ((bits >> 14) & 0x3fff) + 1,
+    };
+  }
+
+  return null;
+}
+
 function pngSize(buf: Buffer): { w: number; h: number } | null {
   if (buf.length < 24) return null;
   if (buf.readUInt32BE(0) !== 0x89504e47) return null;
@@ -95,7 +138,11 @@ export function imageRatio(src: string | undefined): number {
   let ratio = FALLBACK;
   try {
     const buf = fs.readFileSync(file);
-    const size = /\.png$/i.test(file) ? pngSize(buf) : jpegSize(buf);
+    const size = /\.webp$/i.test(file)
+      ? webpSize(buf)
+      : /\.png$/i.test(file)
+        ? pngSize(buf)
+        : jpegSize(buf);
     if (size && size.w > 0) ratio = size.h / size.w;
   } catch {
     // 画像が無くても平面は出したいので、既定値のまま進む

@@ -1,7 +1,7 @@
 ---
 title: ミーシャバッジ
 category: syumi
-image: /exhibition/misha-badge.jpg
+image: /exhibition/misha-badge.webp
 x: 45
 y: 58
 rotate: -10

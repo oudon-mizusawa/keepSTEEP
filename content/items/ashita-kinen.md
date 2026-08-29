@@ -1,7 +1,7 @@
 ---
 title: 明日から禁煙
 category: syumi
-image: /exhibition/ashita-kinen.jpg
+image: /exhibition/ashita-kinen.webp
 x: 72
 y: 100
 rotate: 7

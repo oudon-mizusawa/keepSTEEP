@@ -1,7 +1,7 @@
 ---
 title: 自作土器
 category: syumi
-image: /exhibition/doki.jpg
+image: /exhibition/doki.webp
 x: 57
 y: 80
 rotate: 9

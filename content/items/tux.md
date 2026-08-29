@@ -1,7 +1,7 @@
 ---
 title: Tux
 category: syumi
-image: /exhibition/tux.jpg
+image: /exhibition/tux.webp
 x: 30
 y: 34
 rotate: 8

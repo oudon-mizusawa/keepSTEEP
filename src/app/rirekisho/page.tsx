@@ -30,7 +30,7 @@ export default function RirekishoPage() {
           {/* 仕事を頼むか判断するページなので、ここには顔を出す */}
           <header className="who">
             <Image
-              src={asset("/avatar.png")}
+              src={asset("/avatar.webp")}
               alt="oudon"
               width={700}
               height={700}

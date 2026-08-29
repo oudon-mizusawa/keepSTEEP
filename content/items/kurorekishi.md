@@ -1,7 +1,7 @@
 ---
 title: 黒歴史
 category: syumi
-image: /exhibition/kurorekishi.jpg
+image: /exhibition/kurorekishi.webp
 x: 28
 y: 122
 rotate: -8

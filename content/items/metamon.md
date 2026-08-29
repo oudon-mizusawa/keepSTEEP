@@ -1,7 +1,7 @@
 ---
 title: メタモン(バケモン)
 category: syumi
-image: /exhibition/metamon.jpg
+image: /exhibition/metamon.webp
 x: 79
 y: 74
 rotate: -7

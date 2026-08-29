@@ -1,7 +1,7 @@
 ---
 title: おうちクラウド
 category: syumi
-image: /exhibition/ouchi-cloud.jpg
+image: /exhibition/ouchi-cloud.webp
 x: 50
 y: 10
 rotate: 5

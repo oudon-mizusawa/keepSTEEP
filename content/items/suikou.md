@@ -1,7 +1,7 @@
 ---
 title: 水耕栽培機
 category: syumi
-image: /exhibition/suikou.jpg
+image: /exhibition/suikou.webp
 x: 74
 y: 50
 rotate: 6

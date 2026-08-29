@@ -1,7 +1,7 @@
 ---
 title: タコ？
 category: syumi
-image: /exhibition/tako.jpg
+image: /exhibition/tako.webp
 x: 18
 y: 98
 rotate: 6

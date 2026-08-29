@@ -1,7 +1,7 @@
 ---
 title: テスラコイル
 category: syumi
-image: /exhibition/tesla-coil.jpg
+image: /exhibition/tesla-coil.webp
 x: 60
 y: 33
 rotate: -6

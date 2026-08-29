@@ -1,7 +1,7 @@
 ---
 title: NTT東日本神社
 category: syumi
-image: /exhibition/ntt-jinja.jpg
+image: /exhibition/ntt-jinja.webp
 x: 20
 y: 14
 rotate: -7

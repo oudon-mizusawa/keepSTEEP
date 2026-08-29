@@ -1,6 +1,6 @@
 ---
 title: ツーリング装備
-image: /exhibition/touring.jpg
+image: /exhibition/touring.webp
 ---
 自転車日本縦断旅行時のツーリング装備。
 

@@ -1,7 +1,7 @@
 ---
 title: メモリパキラ
 category: syumi
-image: /exhibition/memory-pachira.jpg
+image: /exhibition/memory-pachira.webp
 x: 26
 y: 76
 rotate: -5
