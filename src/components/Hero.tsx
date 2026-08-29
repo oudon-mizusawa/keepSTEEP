@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, type Variants } from 'motion/react';
+import { motion, useMotionValue, useScroll, useTransform, type Variants } from 'motion/react';
+import { useIsMobile } from '@/lib/useIsMobile';
 import Wordmark from './Wordmark';
 
 /**
@@ -38,12 +39,21 @@ const fadeUp: Variants = {
 
 export default function Hero() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   // トラック全体（画面 1.8 個ぶん）をスクロールする間を 0→1 として扱う
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ['start start', 'end end'],
   });
+
+  /*
+   * タッチ端末では勾配をスクロールに追従させない。
+   * sticky で 1.8 画面ぶん貼り付ける仕掛けは、指で払っても画面が進まないので
+   * «動かしにくい» と感じる原因になっていた。CSS 側でも sticky を外している。
+   */
+  const flat = useMotionValue(0);
+  const climb = isMobile ? flat : scrollYProgress;
   const cueOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   return (
@@ -51,7 +61,7 @@ export default function Hero() {
       <section className="hero">
         <div className="hero__inner">
           <motion.div initial="hidden" animate="show" custom={0} variants={fadeUp}>
-            <Wordmark variant="hero" climb={scrollYProgress} />
+            <Wordmark variant="hero" climb={climb} draggable={!isMobile} />
           </motion.div>
 
           <motion.p className="hero__lead" initial="hidden" animate="show" custom={1} variants={fadeUp}>

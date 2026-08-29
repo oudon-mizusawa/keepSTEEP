@@ -22,6 +22,7 @@ export default function Thing({
   pos,
   active,
   onActivate,
+  draggable = true,
 }: {
   item: Placed;
   pos: { x: number; y: number };
@@ -29,6 +30,11 @@ export default function Thing({
   active?: boolean;
   /** ホバー状態にしてほしいときに呼ぶ。渡されなければ従来どおり 1 タップで遷移 */
   onActivate?: (slug: string) => void;
+  /**
+   * 摘まめるかどうか。タッチ端末では false にする。
+   * 指のスワイプがドラッグに吸われて、ページを縦にスクロールできなくなるため。
+   */
+  draggable?: boolean;
 }) {
   // ドラッグで摘まんだのか、クリックしたのかを区別する。
   // これが無いと、少し動かしただけで遷移してしまう。
@@ -54,7 +60,7 @@ export default function Thing({
     >
       {/* 摘まめる。手を離すと戻る。意味はない。 */}
       <motion.div
-        drag
+        drag={draggable}
         dragSnapToOrigin
         dragElastic={0.55}
         whileHover={{ scale: item.scale * 1.18, rotate: 0 }}

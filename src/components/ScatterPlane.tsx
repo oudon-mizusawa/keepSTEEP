@@ -65,6 +65,7 @@ export default function ScatterPlane({ items }: { items: Item[] }) {
                 pos={slot}
                 active={touched === item.slug}
                 onActivate={setTouched}
+                draggable={!isMobile}
               />
             );
           })}
@@ -90,11 +91,6 @@ export default function ScatterPlane({ items }: { items: Item[] }) {
         </Link>
       </nav>
 
-      <footer className="hud">
-        <span>oshitsuke 24.1&#8451;</span>
-        <span>mizu 22.4&#8451;</span>
-        <span>raspi up 41d</span>
-      </footer>
     </main>
   );
 }

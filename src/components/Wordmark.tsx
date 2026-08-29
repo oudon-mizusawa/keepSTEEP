@@ -23,9 +23,21 @@ type Props = {
   variant?: 'hero' | 'corner';
   /** 0→1 のスクロール進捗。渡すと勾配がそれに追従する */
   climb?: MotionValue<number>;
+  /** 文字を摘まめるかどうか。タッチ端末ではスクロールを奪うので false にする */
+  draggable?: boolean;
 };
 
-function HeroLetter({ ch, i, climb }: { ch: string; i: number; climb: MotionValue<number> }) {
+function HeroLetter({
+  ch,
+  i,
+  climb,
+  draggable,
+}: {
+  ch: string;
+  i: number;
+  climb: MotionValue<number>;
+  draggable: boolean;
+}) {
   // 奥の文字ほど高く上がる。勾配がきつくなると差も開く
   const y = useTransform(climb, [0, 1], [-i * 7, -i * 22]);
   const rotate = useTransform(climb, [0, 1], [-4, -12]);
@@ -34,7 +46,7 @@ function HeroLetter({ ch, i, climb }: { ch: string; i: number; climb: MotionValu
     <motion.span className="mark__ch" style={{ y, rotate }}>
       <motion.span
         className="mark__grab"
-        drag
+        drag={draggable}
         dragSnapToOrigin
         dragElastic={0.5}
         whileHover={{ scale: 1.14 }}
@@ -47,7 +59,7 @@ function HeroLetter({ ch, i, climb }: { ch: string; i: number; climb: MotionValu
   );
 }
 
-export default function Wordmark({ variant = 'corner', climb }: Props) {
+export default function Wordmark({ variant = 'corner', climb, draggable = true }: Props) {
   const hero = variant === 'hero';
 
   // ヒーロー: スクロールが勾配を動かす。文字は摘まめる
@@ -57,7 +69,7 @@ export default function Wordmark({ variant = 'corner', climb }: Props) {
         <span className="mark__keep">keep</span>
         <span className="mark__steep" aria-hidden="true">
           {STEEP.map((ch, i) => (
-            <HeroLetter key={i} ch={ch} i={i} climb={climb} />
+            <HeroLetter key={i} ch={ch} i={i} climb={climb} draggable={draggable} />
           ))}
         </span>
       </span>

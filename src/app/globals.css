@@ -317,23 +317,6 @@ body {
   transform: translateY(-3px);
 }
 
-/* --- 実測値。説明せずに、ただ置く。平面が伸びても画面に対して固定 --- */
-.hud {
-  font-family: var(--font-mono);
-  position: fixed;
-  left: 2rem;
-  bottom: 1.6rem;
-  display: flex;
-  gap: 1.4rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  color: color-mix(in srgb, var(--ink) 40%, transparent);
-  z-index: 50;
-  text-shadow:
-    0 0 3px var(--paper),
-    0 0 6px var(--paper);
-}
-
 @media (max-width: 640px) {
   .thing__art {
     font-size: 2.3rem;
@@ -383,27 +366,34 @@ body {
     );
   }
 
+  /* 指で押すものなので、デスクトップより小さくしない。
+     左下の実測値を消して場所が空いたぶん、字も詰めずに置ける */
   .nav__link {
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
+    font-size: 0.92rem;
+    letter-spacing: 0.18em;
   }
 
   .nav__top {
-    font-size: 0.85rem;
+    font-size: 1.1rem;
   }
 
   .nav__link:hover,
   .nav__link.is-on {
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
   }
 
-  /* 実測値は左下。ナビと同じ高さに並ぶので幅を取りすぎないようにする */
-  .hud {
-    left: 1rem;
-    bottom: calc(1.2rem + env(safe-area-inset-bottom));
-    flex-direction: column;
-    gap: 0.2rem;
-    font-size: 0.54rem;
+}
+
+/* --- モバイル。sticky で 1.8 画面ぶん貼り付けると、指で払っても画面が進まず
+   «動かしにくい» ので、視差をやめて普通に流す --- */
+@media (max-width: 640px) {
+  .hero-track {
+    height: auto;
+  }
+
+  .hero {
+    position: relative;
+    height: 100dvh;
   }
 }
 
